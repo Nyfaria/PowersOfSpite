@@ -22,7 +22,7 @@ import java.util.List;
 
 public class AbilityHolderForge extends PlayerCapability implements AbilityHolder {
 
-    private List<Ability> abilities = NonNullList.withSize(3, AbilityInit.NONE.get());
+    private List<Ability> abilities = NonNullList.withSize(9, AbilityInit.NONE.get());
     private List<Pair<Ability, Long>> tickingAbilities = NonNullList.create();
 
     protected AbilityHolderForge(Player entity) {
@@ -180,7 +180,7 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
 
     @Override
     public void load(CompoundTag holder) {
-        load(holder);
+        deserializeNBT(holder, false);
     }
 
     @Override

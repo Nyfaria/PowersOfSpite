@@ -12,4 +12,7 @@ public class DamageReductionPassive extends Passive {
         this(0.5d);
     }
 
+    public double getAmount() {
+        return amount;
+    }
 }

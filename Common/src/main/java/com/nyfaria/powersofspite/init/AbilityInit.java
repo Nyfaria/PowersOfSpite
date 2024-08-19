@@ -4,6 +4,8 @@ import com.nyfaria.powersofspite.Constants;
 import com.nyfaria.powersofspite.ability.active.SpeedActive;
 import com.nyfaria.powersofspite.ability.active.SwimSpeedActive;
 import com.nyfaria.powersofspite.ability.api.Ability;
+import com.nyfaria.powersofspite.ability.api.Passive;
+import com.nyfaria.powersofspite.ability.passive.DamageReductionPassive;
 import com.nyfaria.powersofspite.ability.passive.StrengthPassive;
 import com.nyfaria.powersofspite.ability.api.NoneAbility;
 import com.nyfaria.powersofspite.ability.passive.FlightPassive;
@@ -24,6 +26,8 @@ public class AbilityInit {
     public static RegistryObject<Ability> SUPER_STRENGTH = ABILITIES.register("super_strength", StrengthPassive::new);
     public static RegistryObject<Ability> SUPER_SPEED = ABILITIES.register("super_speed", SpeedActive::new);
     public static RegistryObject<Ability> SWIM_SPEED = ABILITIES.register("swim_speed", SwimSpeedActive::new);
+    public static RegistryObject<Ability> HALF_DAMAGE = ABILITIES.register("half_damage", DamageReductionPassive::new);
+    public static RegistryObject<Ability> BOUNCE = ABILITIES.register("bound", Passive::new);
 
 
 

@@ -12,6 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,17 +40,28 @@ public class SerumSyringeItem extends Item {
 
     @Override
     public @NotNull ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-        pStack.shrink(1);
         float activeChance = Services.PLATFORM.getAbilityHolder((Player) pLivingEntity).getAbilities().stream().anyMatch(ability -> ability instanceof Active) ? 0.01f : 0.5f;
         List<Power> potentialAbilities;
         if (pLevel.random.nextFloat() < activeChance) {
-            potentialAbilities = PowerInit.POWERS.getEntries().stream().filter(powerRO -> powerRO.get().hasActive() && !Services.PLATFORM.getPowerHolder((Player)pLivingEntity).hasPower(powerRO.get())).map(RegistryObject::get).toList();
+            potentialAbilities = PowerInit.POWERS.getEntries().stream().filter(powerRO -> !Services.PLATFORM.getPowerHolder((Player)pLivingEntity).hasPower(powerRO.get())).map(RegistryObject::get).toList();
         } else {
             potentialAbilities = PowerInit.POWERS.getEntries().stream().filter(powerRO -> !powerRO.get().hasActive() && !Services.PLATFORM.getPowerHolder((Player)pLivingEntity).hasPower(powerRO.get())).map(RegistryObject::get).toList();
         }
+        if(potentialAbilities.isEmpty()){
+            potentialAbilities = PowerInit.POWERS.getEntries().stream().filter(powerRO -> !Services.PLATFORM.getPowerHolder((Player)pLivingEntity).hasPower(powerRO.get())).map(RegistryObject::get).toList();
+        }
+        if(potentialAbilities.isEmpty()){
+            return pStack.copy();
+        }
+        pStack.shrink(1);
         Power power = potentialAbilities.get(pLevel.random.nextInt(potentialAbilities.size()));
         Services.PLATFORM.getPowerHolder((Player) pLivingEntity).addPower(power);
         return pStack.copy();
+    }
+
+    @Override
+    public UseAnim getUseAnimation(ItemStack pStack) {
+        return UseAnim.BOW;
     }
 
     @Override

@@ -20,7 +20,7 @@ import java.util.List;
 
 public class PowerHolderForge extends PlayerCapability implements PowerHolder {
 
-    private List<Power> powers = NonNullList.withSize(6, PowerInit.NONE.get());
+    private List<Power> powers = NonNullList.withSize(3, PowerInit.NONE.get());
 
     protected PowerHolderForge(Player entity) {
         super(entity);
@@ -133,6 +133,6 @@ public class PowerHolderForge extends PlayerCapability implements PowerHolder {
 
     @Override
     public void load(CompoundTag holder) {
-        load(holder);
+        deserializeNBT(holder,false);
     }
 }

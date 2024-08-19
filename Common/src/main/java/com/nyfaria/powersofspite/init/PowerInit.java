@@ -1,6 +1,7 @@
 package com.nyfaria.powersofspite.init;
 
 import com.nyfaria.powersofspite.Constants;
+import com.nyfaria.powersofspite.power.Elasticity;
 import com.nyfaria.powersofspite.power.FlightPower;
 import com.nyfaria.powersofspite.power.NonePower;
 import com.nyfaria.powersofspite.power.SuperSpeedPower;
@@ -18,6 +19,7 @@ public class PowerInit {
     public static Supplier<Registry<Power>> REG = POWERS.registryBuilder().build();
     public static RegistryObject<Power> SUPER_SPEED = POWERS.register("super_speed", SuperSpeedPower::new);
     public static RegistryObject<Power> FLIGHT = POWERS.register("flight", FlightPower::new);
+    public static RegistryObject<Power> ELASTICITY = POWERS.register("elasticity", Elasticity::new);
 
     //    public static RegistryObject<Power> TELEPORTATION = POWERS.register("teleportation", TeleportationPower::new);
     //    public static RegistryObject<Power> SUPER_STRENGTH = POWERS.register("super_strength", SuperStrengthPower::new);
