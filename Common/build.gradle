@@ -34,6 +34,7 @@ dependencies {
     annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.4.0'
     implementation "fuzs.forgeconfigapiport:forgeconfigapiport-common:${project.forge_config_api_port_version}"
     compileOnly "mysticdrew:common-networking-common:${cn_version}"
+    compileOnly(fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:${player_anim_version}"))
 
 }
 sourceSets.main.resources.srcDir './src/generated/resources'

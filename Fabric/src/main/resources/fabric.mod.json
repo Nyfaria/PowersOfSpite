@@ -12,10 +12,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.nyfaria.thegifted.TheGifted"
+      "com.nyfaria.powerofspite.TheGifted"
     ],
     "client": [
-      "com.nyfaria.thegifted.TheGiftedClient"
+      "com.nyfaria.powerofspite.TheGiftedClient"
     ]
   },
   "mixins": [

@@ -23,6 +23,7 @@ dependencies {
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cc_version}"
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cc_version}"
     include(modImplementation("mysticdrew:common-networking-fabric:${cn_version}"))
+    modImplementation include("maven.modrinth:AdditionalEntityAttributes:ihezi2bP")
 }
 
 loom {

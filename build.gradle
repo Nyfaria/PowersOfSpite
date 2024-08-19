@@ -68,6 +68,21 @@ subprojects {
         maven {
             url = "https://jm.gserv.me/repository/maven-public/"
         }
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = "Modrinth"
+                    url = "https://api.modrinth.com/maven"
+                }
+            }
+            filter {
+                includeGroup "maven.modrinth"
+            }
+        }
+        maven {
+            name "KosmX's maven"
+            url 'https://maven.kosmx.dev/'
+        }
     }
 
     tasks.withType(JavaCompile).configureEach {
