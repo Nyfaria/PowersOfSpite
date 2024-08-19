@@ -81,7 +81,7 @@ mixin {
 }
 
 repositories {
-    maven hundredMedia.get100MediaMaven()
+    maven hundredMedia.get100MediaPublicMaven()
 }
 
 dependencies {
