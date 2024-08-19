@@ -6,9 +6,11 @@ plugins {
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'org.spongepowered.mixin' version '0.7.+'
     id "me.modmuss50.mod-publish-plugin" version "0.3.3"
+    id 'dev._100media.gradleutils' version '1.+'
 }
 
 archivesBaseName = "${mod_id}-forge-${minecraft_version}"
+hundredMedia.mcVersion = minecraft_version
 
 minecraft {
     mappings channel: mappings_channel, version: mappings_version
@@ -77,14 +79,22 @@ mixin {
     // Enables exporting mixin-changed classes to .mixin.out in the run folder
     debug.export = true
 }
+
+repositories {
+    maven hundredMedia.get100MediaMaven()
+}
+
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     compileOnly project(":Common")
-    implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:0.2.0-rc.3"))
-    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.2.0-rc.3")) {
-        jarJar.ranged(it, "[0.2.0-rc.3,)")
+    implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.0"))
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.4.0")) {
+        jarJar.ranged(it, "[0.4.0,)")
     }
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
+    // Capability Syncer
+    hundredMedia.addJarJarDep('dev._100media.capabilitysyncer:capabilitysyncer', capabilitysyncer_version, capabilitysyncer_version_range)
+    hundredMedia.addJarJarDep('mysticdrew:common-networking-forge',cn_version,cn_version_range)
 }
 
 tasks.withType(JavaCompile) {

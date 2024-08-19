@@ -16,16 +16,19 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    implementation project(":Common")
-    include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.2.0-rc.3")))
+    compileOnly project(":Common")
+    include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.4.0")))
     modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forge_config_api_port_version}"
     include "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forge_config_api_port_version}"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cc_version}"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cc_version}"
+    include(modImplementation("mysticdrew:common-networking-fabric:${cn_version}"))
 }
 
 loom {
 
     if (project.hasProperty('fabric_aws_enabled') && project.findProperty('fabric_aws_enabled').toBoolean()) {
-        accessWidenerPath = project(":Common").file("src/main/resources/${mod_id}.accesswidener")
+        accessWidenerPath = project(":Common").file("src/main/resources/accesstransformers.accesswidener")
     }
     runs {
         client {

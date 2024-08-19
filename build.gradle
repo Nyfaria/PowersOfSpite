@@ -1,5 +1,6 @@
 plugins {
     id 'com.matyrobbrt.mc.registrationutils' version "$regutils_version" // The plugin is located at the Gradle plugin portal
+    id 'org.spongepowered.gradle.vanilla' version '0.2.1-SNAPSHOT' apply(false)
 }
 registrationUtils {
     group "com.nyfaria.${mod_id}.registration"
@@ -46,7 +47,7 @@ subprojects {
     repositories {
 
         mavenCentral()
-        maven { url 'https://jitpack.io' }
+//        maven { url 'https://jitpack.io' }
         maven {
             name = 'Sponge / Mixin'
             url = 'https://repo.spongepowered.org/repository/maven-public/'
@@ -59,6 +60,13 @@ subprojects {
         maven {
             name = "Fuzs Mod Resources"
             url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+        }
+        maven {
+            name = 'Ladysnake Mods'
+            url = 'https://maven.ladysnake.org/releases'
+        }
+        maven {
+            url = "https://jm.gserv.me/repository/maven-public/"
         }
     }
 
