@@ -1,6 +1,6 @@
 package com.nyfaria.powersofspite.packets.s2c;
 
-import com.nyfaria.powersofspite.Constants;
+import com.nyfaria.powersofspite.SpiteConstants;
 import com.nyfaria.powersofspite.platform.Services;
 import com.nyfaria.powersofspite.client.ClientUtils;
 import commonnetwork.networking.data.PacketContext;
@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.UUID;
 
 public record UpdatePowerCapPacket(UUID player, CompoundTag holder) {
-    public static final ResourceLocation LOCATION = Constants.modLoc("set_cosmetic");
+    public static final ResourceLocation LOCATION = SpiteConstants.modLoc("set_cosmetic");
 
 
     public static UpdatePowerCapPacket decode(FriendlyByteBuf buf) {

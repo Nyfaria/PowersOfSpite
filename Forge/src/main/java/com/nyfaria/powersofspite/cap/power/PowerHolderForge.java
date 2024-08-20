@@ -1,6 +1,6 @@
 package com.nyfaria.powersofspite.cap.power;
 
-import com.nyfaria.powersofspite.Constants;
+import com.nyfaria.powersofspite.SpiteConstants;
 import com.nyfaria.powersofspite.cap.AbilityHolder;
 import com.nyfaria.powersofspite.platform.Services;
 import com.nyfaria.powersofspite.cap.PowerHolder;
@@ -46,7 +46,7 @@ public class PowerHolderForge extends PlayerCapability implements PowerHolder {
     public void deserializeNBT(CompoundTag nbt, boolean readingFromDisk) {
         for (int i = 0; i < this.powers.size(); i++) {
             String key = nbt.getString("power_" + i);
-            Power power = PowerInit.POWERS.getRegistry().get(Constants.loc(key));
+            Power power = PowerInit.POWERS.getRegistry().get(SpiteConstants.loc(key));
             this.powers.set(i, power);
         }
     }
@@ -110,6 +110,7 @@ public class PowerHolderForge extends PlayerCapability implements PowerHolder {
             Services.PLATFORM.getAbilityHolder(getPlayer()).addAll(power.getAbilities());
             updateTracking();
         }
+        evaluateAbilities();
     }
 
     @Override
@@ -117,8 +118,11 @@ public class PowerHolderForge extends PlayerCapability implements PowerHolder {
         int slot = powers.indexOf(power);
         if (slot != -1) {
             powers.set(slot, PowerInit.NONE.get());
+            updateTracking();
         }
+        evaluateAbilities();
     }
+
 
     @Override
     public Player getPlayer() {

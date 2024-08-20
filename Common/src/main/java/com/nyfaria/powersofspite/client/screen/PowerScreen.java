@@ -1,6 +1,6 @@
 package com.nyfaria.powersofspite.client.screen;
 
-import com.nyfaria.powersofspite.Constants;
+import com.nyfaria.powersofspite.SpiteConstants;
 import com.nyfaria.powersofspite.ability.api.Ability;
 import com.nyfaria.powersofspite.cap.PowerHolder;
 import com.nyfaria.powersofspite.init.PowerInit;
@@ -46,14 +46,14 @@ public class PowerScreen extends Screen {
 
     @Override
     public void renderBackground(GuiGraphics pGuiGraphics) {
-        pGuiGraphics.blitNineSliced(Constants.modLoc("textures/gui/background.png"), Mth.floor(width / 2f - Mth.floor(screenWidth / 2f)), Mth.floor(height / 2f - Mth.floor(screenHeight / 2f)), screenWidth, screenHeight, 4, 16, 16, 0, 0);
+        pGuiGraphics.blitNineSliced(SpiteConstants.modLoc("textures/gui/background.png"), Mth.floor(width / 2f - Mth.floor(screenWidth / 2f)), Mth.floor(height / 2f - Mth.floor(screenHeight / 2f)), screenWidth, screenHeight, 4, 16, 16, 0, 0);
         if (maxScreenHeight <= screenHeight) {
             PowerHolder holder = Services.PLATFORM.getPowerHolder(Minecraft.getInstance().player);
             if (holder != null) {
                 int yO = 10;
                 for (Power power : holder.getPowers()) {
                     int offset = Mth.floor((maxIconSize - iconSize) / 2f);
-                    pGuiGraphics.blit(Constants.modLoc("textures/gui/power_slot.png"), topLeftX + 10 + offset, topLeftY + yO + offset, 0, 0, iconSize, iconSize, iconSize, iconSize);
+                    pGuiGraphics.blit(SpiteConstants.modLoc("textures/gui/power_slot.png"), topLeftX + 10 + offset, topLeftY + yO + offset, 0, 0, iconSize, iconSize, iconSize, iconSize);
 //                    if(iconSize == maxIconSize) {
 //                        pGuiGraphics.blit(Constants.modLoc("textures/power/" + PowerInit.REG.get().getKey(power).getPath() + ".png"), topLeftX + 12, topLeftY + yO + 2, 0, 0, 16, 16, 16, 16);
 //                    }
@@ -71,13 +71,13 @@ public class PowerScreen extends Screen {
             int yOffset = 10;
             pGuiGraphics.pose().pushPose();
             pGuiGraphics.pose().scale(1.5f, 1.5f, 1.5f);
-            pGuiGraphics.drawCenteredString(font, Component.translatable(Constants.getDescriptionId(renderingPower)), Mth.floor((topLeftX + 20 + 10 + ((screenWidth - 20 - 10) / 2f)) * (2 / 3f)), Mth.floor((topLeftY + yOffset) * (2 / 3f)), 0xFFFFFF);
+            pGuiGraphics.drawCenteredString(font, Component.translatable(SpiteConstants.getDescriptionId(renderingPower)), Mth.floor((topLeftX + 20 + 10 + ((screenWidth - 20 - 10) / 2f)) * (2 / 3f)), Mth.floor((topLeftY + yOffset) * (2 / 3f)), 0xFFFFFF);
             pGuiGraphics.pose().popPose();
             yOffset += 15;
             pGuiGraphics.hLine(topLeftX + 40, topLeftX + screenWidth - 10, topLeftY + yOffset, 0xFFFFFFFF);
             yOffset += 5;
             for (int i = 0; i < 6; i++) {
-                String id = Constants.getPowerDescription(renderingPower, i);
+                String id = SpiteConstants.getPowerDescription(renderingPower, i);
                 Component text = Component.translatable(id);
                 if (text.getString().isEmpty()) {
                     break;
@@ -85,23 +85,24 @@ public class PowerScreen extends Screen {
                 if (text.getString().equals(id)) {
                     break;
                 }
-                List<FormattedCharSequence> lines = font.split(text, ((screenWidth - 20 - 10)));
+                List<FormattedCharSequence> lines = font.split(text, ((screenWidth - 20 - 30)));
                 for (FormattedCharSequence line : lines) {
                     pGuiGraphics.drawString(font, line, topLeftX + 45, topLeftY + yOffset, 0xFFFFFF);
                     yOffset += 10;
                 }
             }
+            pGuiGraphics.hLine(topLeftX + 40, topLeftX + screenWidth - 10, topLeftY + yOffset, 0xFFFFFFFF);
             yOffset += 10;
             for(Ability ability : renderingPower.getAbilities()){
                 pGuiGraphics.pose().pushPose();
                 pGuiGraphics.pose().scale(1.25f, 1.25f, 1.25f);
-                pGuiGraphics.drawCenteredString(font, Component.translatable(Constants.getDescriptionId(ability)), Mth.floor((topLeftX + 20 + 10 + ((screenWidth - 20 - 10) / 2f)) * (4 / 5f)), Mth.floor((topLeftY + yOffset) * (4 / 5f)), 0xFFFFFF);
+                pGuiGraphics.drawCenteredString(font, Component.translatable(SpiteConstants.getDescriptionId(ability)), Mth.floor((topLeftX + 20 + 10 + ((screenWidth - 20 - 10) / 2f)) * (4 / 5f)), Mth.floor((topLeftY + yOffset) * (4 / 5f)), 0xFFFFFF);
                 pGuiGraphics.pose().popPose();
                 yOffset += 15;
                 pGuiGraphics.hLine(topLeftX + 40, topLeftX + screenWidth - 10, topLeftY + yOffset, 0xFFFFFFFF);
                 yOffset += 5;
                 for (int i = 0; i < 6; i++) {
-                    String id = Constants.getAbilityDescription(ability, i);
+                    String id = SpiteConstants.getAbilityDescription(ability, i);
                     Component text = Component.translatable(id);
                     if (text.getString().isEmpty()) {
                         break;
@@ -119,6 +120,7 @@ public class PowerScreen extends Screen {
                     pGuiGraphics.pose().popPose();
                 }
                 pGuiGraphics.hLine(topLeftX + 40, topLeftX + screenWidth - 10, topLeftY + yOffset, 0xFFFFFFFF);
+                yOffset += 10;
             }
         }
     }
@@ -138,10 +140,10 @@ public class PowerScreen extends Screen {
                 int yO = 12;
                 for (Power power : holder.getPowers()) {
                     ImageButton button;
-                    this.addRenderableWidget(button = new ImageButton(topLeftX + 12, topLeftY + yO, 16, 16, 0, 0, 0, Constants.modLoc("textures/power/" + PowerInit.REG.get().getKey(power).getPath() + ".png"), 16, 16, button3 -> {
+                    this.addRenderableWidget(button = new ImageButton(topLeftX + 12, topLeftY + yO, 16, 16, 0, 0, 0, SpiteConstants.modLoc("textures/power/" + PowerInit.REG.get().getKey(power).getPath() + ".png"), 16, 16, button3 -> {
                         renderingPower = power;
                     }));
-                    button.setTooltip(Tooltip.create(Component.translatable(Constants.getDescriptionId(power))));
+                    button.setTooltip(Tooltip.create(Component.translatable(SpiteConstants.getDescriptionId(power))));
                     yO += 22;
                 }
                 renderingPower = holder.getPowers().get(0);

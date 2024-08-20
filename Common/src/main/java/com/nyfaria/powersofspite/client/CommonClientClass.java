@@ -1,12 +1,25 @@
 package com.nyfaria.powersofspite.client;
 
+import com.nyfaria.powersofspite.SpiteConstants;
+import com.nyfaria.powersofspite.client.model.PortalModel;
+import com.nyfaria.powersofspite.client.renderer.CloneRenderer;
+import com.nyfaria.powersofspite.client.renderer.PortalRenderer;
+import com.nyfaria.powersofspite.init.EntityInit;
 import com.nyfaria.powersofspite.packets.c2s.OnMovementPacket;
 import com.nyfaria.powersofspite.utils.MovementKey;
 import commonnetwork.api.Network;
+import dev.kosmx.playerAnim.api.layered.IAnimation;
+import dev.kosmx.playerAnim.api.layered.ModifierLayer;
+import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationFactory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.player.Player;
 
+import java.util.List;
 import java.util.Objects;
 
 public class CommonClientClass {
@@ -53,7 +66,26 @@ public class CommonClientClass {
             }
         }
     }
-
+    public static void registerEntityRenderers() {
+        EntityRenderers.register(EntityInit.CLONE.get(), (rm) -> new CloneRenderer(rm, true));
+        EntityRenderers.register(EntityInit.PORTAL.get(), (rm) -> new PortalRenderer(rm));
+    }
+    public static List<LayerDefInfo> getLayerDefinitions(){
+        return List.of(
+                new LayerDefInfo(PortalModel.LAYER_LOCATION, PortalModel.createBodyLayer())
+        );
+    }
+    public static void registerAnimationLayer(){
+        PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
+                SpiteConstants.modLoc("animation"), 42, CommonClientClass::registerPlayerAnimation
+        );
+    }
+    private static IAnimation registerPlayerAnimation(AbstractClientPlayer player) {
+        //This will be invoked for every new player
+        return new ModifierLayer<>();
+    }
+    public record LayerDefInfo(ModelLayerLocation layerLocation, LayerDefinition supplier) {
+    }
 }
 
 

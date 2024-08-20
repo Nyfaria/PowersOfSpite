@@ -1,5 +1,6 @@
 package com.nyfaria.powersofspite.datagen;
 
+import com.nyfaria.powersofspite.init.ItemInit;
 import com.nyfaria.powersofspite.registration.RegistryObject;
 import com.nyfaria.powersofspite.init.BlockInit;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -18,6 +19,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
     @Override
     protected void generate() {
         this.getBlockStream().filter(this::shouldDropSelf).forEach(this::dropSelf);
+        add(BlockInit.SPITE_ORE.get(),createOreDrop(BlockInit.SPITE_ORE.get(), ItemInit.RAW_SPITE.get()));
     }
 
     @Override
@@ -30,11 +32,11 @@ public class ModBlockLootTables extends BlockLootSubProvider {
     }
 
     protected boolean shouldDropSelf(Block block) {
-        return shouldGenerateLoot(block);
+        return shouldGenerateLoot(block)&& !(block instanceof DropExperienceBlock);
     }
 
     protected boolean shouldGenerateLoot(Block block) {
-        return block.asItem() != Items.AIR && !(block instanceof DropExperienceBlock);
+        return block.asItem() != Items.AIR;
     }
 
 }

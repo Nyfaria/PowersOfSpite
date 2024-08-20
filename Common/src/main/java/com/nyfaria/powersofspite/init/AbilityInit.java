@@ -1,8 +1,10 @@
 package com.nyfaria.powersofspite.init;
 
-import com.nyfaria.powersofspite.Constants;
+import com.nyfaria.powersofspite.SpiteConstants;
+import com.nyfaria.powersofspite.ability.active.CloneActive;
 import com.nyfaria.powersofspite.ability.active.IntangibilityActive;
 import com.nyfaria.powersofspite.ability.active.InvisibilityActive;
+import com.nyfaria.powersofspite.ability.active.PortalActive;
 import com.nyfaria.powersofspite.ability.active.SpeedActive;
 import com.nyfaria.powersofspite.ability.active.SwimSpeedActive;
 import com.nyfaria.powersofspite.ability.api.Ability;
@@ -22,8 +24,8 @@ import net.minecraft.resources.ResourceKey;
 import java.util.function.Supplier;
 
 public class AbilityInit {
-    public static ResourceKey<Registry<Ability>> ABILITY_KEY = ResourceKey.createRegistryKey(Constants.modLoc("ability"));
-    public static RegistrationProvider<Ability> ABILITIES = RegistrationProvider.get(ABILITY_KEY, Constants.MODID);
+    public static ResourceKey<Registry<Ability>> ABILITY_KEY = ResourceKey.createRegistryKey(SpiteConstants.modLoc("ability"));
+    public static RegistrationProvider<Ability> ABILITIES = RegistrationProvider.get(ABILITY_KEY, SpiteConstants.MODID);
     public static Supplier<Registry<Ability>> REG = ABILITIES.registryBuilder().build();
     public static RegistryObject<Ability> FLIGHT = ABILITIES.register("flight", FlightPassive::new);
     public static RegistryObject<Ability> WATER_BREATHING = ABILITIES.register("water_breathing", WaterBreathingPassive::new);
@@ -37,6 +39,9 @@ public class AbilityInit {
     public static RegistryObject<Ability> INVISIBILITY = ABILITIES.register("invisibility", InvisibilityActive::new);
     public static RegistryObject<Ability> INTANGIBILITY = ABILITIES.register("intangibility", IntangibilityActive::new);
     public static RegistryObject<Ability> CLEAR_VISION = ABILITIES.register("clear_vision", Passive::new);
+    public static RegistryObject<Ability> TELEPORTATION = ABILITIES.register("teleportation", Passive::new);
+    public static RegistryObject<Ability> CLONE = ABILITIES.register("clone", ()->new CloneActive(2));
+    public static RegistryObject<Ability> PORTAL = ABILITIES.register("portal", PortalActive::new);
 
 
 

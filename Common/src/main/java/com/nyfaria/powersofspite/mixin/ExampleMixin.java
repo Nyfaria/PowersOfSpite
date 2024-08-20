@@ -1,6 +1,6 @@
 package com.nyfaria.powersofspite.mixin;
 
-import com.nyfaria.powersofspite.Constants;
+import com.nyfaria.powersofspite.SpiteConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,8 +14,8 @@ public class ExampleMixin {
     @Inject(at = @At("HEAD"), method = "init()V")
     private void init(CallbackInfo info) {
         
-        Constants.LOG.info("This line is printed by an example mod mixin from Fabric!");
-        Constants.LOG.info("MC Version: {}", Minecraft.getInstance().getVersionType());
-        Constants.LOG.info("Classloader: {}", this.getClass().getClassLoader());
+        SpiteConstants.LOG.info("This line is printed by an example mod mixin from Fabric!");
+        SpiteConstants.LOG.info("MC Version: {}", Minecraft.getInstance().getVersionType());
+        SpiteConstants.LOG.info("Classloader: {}", this.getClass().getClassLoader());
     }
 }

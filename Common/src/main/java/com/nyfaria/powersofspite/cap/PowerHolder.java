@@ -1,5 +1,6 @@
 package com.nyfaria.powersofspite.cap;
 
+import com.nyfaria.powersofspite.platform.Services;
 import com.nyfaria.powersofspite.power.api.Power;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
@@ -19,4 +20,11 @@ public interface PowerHolder {
     CompoundTag save();
 
     void load(CompoundTag holder);
+    default void evaluateAbilities(){
+        AbilityHolder abilityHolder = Services.PLATFORM.getAbilityHolder(getPlayer());
+        abilityHolder.clearAbilities();
+        for (Power power : getPowers()) {
+            abilityHolder.addAll(power.getAbilities());
+        }
+    }
 }

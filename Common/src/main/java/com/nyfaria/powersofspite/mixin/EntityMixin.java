@@ -58,6 +58,8 @@ public abstract class EntityMixin {
                     this.setPos(this.getX() + pPos.x, Mth.clamp(this.getY() + pPos.y, Mth.floor(this.getY()), Double.MAX_VALUE), this.getZ() + pPos.z);
                 }
             }
+        } else {
+            original.call(pType, pPos);
         }
     }
 }

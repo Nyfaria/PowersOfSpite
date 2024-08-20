@@ -1,6 +1,6 @@
 package com.nyfaria.powersofspite.datagen;
 
-import com.nyfaria.powersofspite.Constants;
+import com.nyfaria.powersofspite.SpiteConstants;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -20,7 +20,7 @@ public class ModTagProvider {
     public static class Items extends TagsProvider<Item>{
 
         public Items(PackOutput p_256596_, CompletableFuture<HolderLookup.Provider> p_256513_, @Nullable ExistingFileHelper existingFileHelper) {
-            super(p_256596_, Registries.ITEM, p_256513_, Constants.MODID, existingFileHelper);
+            super(p_256596_, Registries.ITEM, p_256513_, SpiteConstants.MODID, existingFileHelper);
         }
 
         @Override
@@ -38,7 +38,7 @@ public class ModTagProvider {
     public static class Blocks extends TagsProvider<Block>{
 
         public Blocks(PackOutput pGenerator, CompletableFuture<HolderLookup.Provider> p_256513_, @Nullable ExistingFileHelper existingFileHelper) {
-            super(pGenerator, Registries.BLOCK, p_256513_, Constants.MODID, existingFileHelper);
+            super(pGenerator, Registries.BLOCK, p_256513_, SpiteConstants.MODID, existingFileHelper);
         }
 
         @Override

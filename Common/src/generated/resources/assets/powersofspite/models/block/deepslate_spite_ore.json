@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "powersofspite:block/deepslate_spite_ore_top",
+    "side": "powersofspite:block/deepslate_spite_ore",
+    "top": "powersofspite:block/deepslate_spite_ore"
+  }
+}

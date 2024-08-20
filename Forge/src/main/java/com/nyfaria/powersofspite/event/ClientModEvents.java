@@ -1,19 +1,16 @@
 package com.nyfaria.powersofspite.event;
 
-import com.nyfaria.powersofspite.Constants;
-import com.nyfaria.powersofspite.ability.api.Ability;
-import com.nyfaria.powersofspite.ability.api.Active;
-import com.nyfaria.powersofspite.cap.AbilityHolder;
-import com.nyfaria.powersofspite.init.AbilityInit;
+import com.nyfaria.powersofspite.SpiteConstants;
+import com.nyfaria.powersofspite.cap.PowerHolder;
+import com.nyfaria.powersofspite.client.CommonClientClass;
 import com.nyfaria.powersofspite.init.KeyBindInit;
+import com.nyfaria.powersofspite.init.PowerInit;
 import com.nyfaria.powersofspite.platform.Services;
-import dev.kosmx.playerAnim.api.layered.IAnimation;
-import dev.kosmx.playerAnim.api.layered.ModifierLayer;
-import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationFactory;
+import com.nyfaria.powersofspite.power.api.Power;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -26,35 +23,45 @@ public class ClientModEvents {
     @SubscribeEvent
     public static void onKeyBinds(RegisterKeyMappingsEvent event) {
         KeyBindInit.initKeyBinds();
+        KeyBindInit.ABILITY_KEYS.forEach(event::register);
+        event.register(KeyBindInit.OPEN_SCREEN);
     }
 
     @SubscribeEvent
     public static void onFMLClient(FMLClientSetupEvent event) {
-        PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
-                Constants.modLoc("animation"), 42, ClientModEvents::registerPlayerAnimation
+        CommonClientClass.registerAnimationLayer();
+    }
+    @SubscribeEvent
+    public static void onEntityRenderLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        CommonClientClass.getLayerDefinitions().forEach(
+                layerdef -> event.registerLayerDefinition(layerdef.layerLocation(), layerdef::supplier)
         );
     }
-
     @SubscribeEvent
     public static void onOverlayRegister(RegisterGuiOverlaysEvent event) {
         event.registerAboveAll("ability_overlay", (forgeGui, guiGraphics, partialTicks, width, height) -> {
-            AbilityHolder holder = Services.PLATFORM.getAbilityHolder(Minecraft.getInstance().player);
+            PowerHolder holder = Services.PLATFORM.getPowerHolder(Minecraft.getInstance().player);
             if (holder != null) {
-                int y = 0;
-                for (Ability ability : holder.getAbilities()) {
-                    if (ability instanceof Active active) {
-                        ResourceLocation texture = Constants.modLoc("textures/power/" + AbilityInit.REG.get().getKey(active).getPath() + ".png");
-                        guiGraphics.blit(texture, 0, y, 0, 0, 16, 16, 16, 16);
-                        y += 16;
+                int y = 3;
+                int keyIndex = 0;
+                for (Power ability : holder.getPowers()) {
+                    if (ability.hasActive()) {
+                        guiGraphics.blit(SpiteConstants.modLoc("textures/gui/power_slot.png"), 3, y, 0, 0, 20, 20, 20, 20);
+                        ResourceLocation texture = SpiteConstants.modLoc("textures/power/" + PowerInit.REG.get().getKey(ability).getPath() + ".png");
+                        guiGraphics.blit(texture, 5, y + 2, 0, 0, 16, 16, 16, 16);
+                        int fontWidth = Minecraft.getInstance().font.width(KeyBindInit.ABILITY_KEYS.get(keyIndex).getKey().getDisplayName());
+                        guiGraphics.drawString(Minecraft.getInstance().font,KeyBindInit.ABILITY_KEYS.get(keyIndex).getKey().getDisplayName(), 25 - fontWidth, y + 20 -Minecraft.getInstance().font.lineHeight , 0xFFFFFFFF);
+                        y += 22;
+                        keyIndex++;
                     }
 
                 }
             }
         });
     }
-
-    private static IAnimation registerPlayerAnimation(AbstractClientPlayer player) {
-        //This will be invoked for every new player
-        return new ModifierLayer<>();
+    @SubscribeEvent
+    public static void onEntityRenderers(EntityRenderersEvent.RegisterRenderers event){
+        CommonClientClass.registerEntityRenderers();
     }
+
 }

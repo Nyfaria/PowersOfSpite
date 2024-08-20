@@ -20,16 +20,18 @@ public class KeyBindInit {
     public static void initKeyBinds() {
         for (int i = 0; i < 3; i++) {
             KeyMapping key = new KeyMapping("key.powersofspite.ability_" + i, InputConstants.KEY_NUMPAD0 + i, "key.categories.powersofspite");
-            Minecraft.getInstance().options.keyMappings = ArrayUtils.add(Minecraft.getInstance().options.keyMappings, key);
             ABILITY_KEYS.add(key);
         }
+//        Minecraft.getInstance().options.keyMappings = ArrayUtils.add(Minecraft.getInstance().options.keyMappings, key);
+//        Minecraft.getInstance().options.keyMappings = ArrayUtils.add(Minecraft.getInstance().options.keyMappings, OPEN_SCREEN);
     }
 
     public static void onKeyInput(int key, int scanCode, int action, int modifiers) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null)
             return;
-
+        if(mc.screen!=null)
+            return;
         if (action != GLFW.GLFW_REPEAT) {
             for (int i = 0; i < ABILITY_KEYS.size(); i++) {
                 KeyMapping abilityKey = ABILITY_KEYS.get(i);

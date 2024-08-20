@@ -1,7 +1,7 @@
 package com.nyfaria.powersofspite.cap.ability;
 
 import com.mojang.datafixers.util.Pair;
-import com.nyfaria.powersofspite.Constants;
+import com.nyfaria.powersofspite.SpiteConstants;
 import com.nyfaria.powersofspite.ability.api.Ability;
 import com.nyfaria.powersofspite.ability.api.Active;
 import com.nyfaria.powersofspite.ability.api.Passive;
@@ -12,6 +12,7 @@ import commonnetwork.api.Network;
 import dev._100media.capabilitysyncer.core.PlayerCapability;
 import dev._100media.capabilitysyncer.network.EntityCapabilityStatusPacket;
 import dev._100media.capabilitysyncer.network.SimpleEntityCapabilityStatusPacket;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -19,11 +20,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 import java.util.List;
+import java.util.UUID;
 
 public class AbilityHolderForge extends PlayerCapability implements AbilityHolder {
 
     private List<Ability> abilities = NonNullList.withSize(9, AbilityInit.NONE.get());
     private List<Pair<Ability, Long>> tickingAbilities = NonNullList.create();
+    private PortalInfo portalInfo = new PortalInfo();
 
     protected AbilityHolderForge(Player entity) {
         super(entity);
@@ -36,11 +39,11 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
             Ability ability = this.abilities.get(i);
             tag.putString("ability_" + i, AbilityInit.REG.get().getKey(ability).toString());
         }
-        if(!savingToDisk){
+        if (!savingToDisk) {
             CompoundTag tickingTag = new CompoundTag();
             for (int i = 0; i < this.tickingAbilities.size(); i++) {
                 Pair<Ability, Long> pair = this.tickingAbilities.get(i);
-                if(pair.getFirst() == null){
+                if (pair.getFirst() == null) {
                     continue;
                 }
                 tickingTag.putString("ticking_ability_" + i, AbilityInit.REG.get().getKey(pair.getFirst()).toString());
@@ -50,27 +53,46 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
                 tag.put("ticking_abilities", tickingTag);
             }
         }
+        CompoundTag portalTag = new CompoundTag();
+        if(portalInfo.portal1() != null){
+            portalTag.putUUID("portal1u", portalInfo.portal1());
+            portalTag.putLong("portal1p", portalInfo.pos1().asLong());
+        }
+        if(portalInfo.portal2() != null){
+            portalTag.putUUID("portal2u", portalInfo.portal2());
+            portalTag.putLong("portal2p", portalInfo.pos2().asLong());
+        }
+        portalTag.putInt("lastPortal", portalInfo.lastPortal());
+        tag.put("portalInfo", portalTag);
         return tag;
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt, boolean readingFromDisk) {
+    public void deserializeNBT(CompoundTag tag, boolean readingFromDisk) {
         for (int i = 0; i < this.abilities.size(); i++) {
-            String key = nbt.getString("ability_" + i);
-            Ability power = AbilityInit.REG.get().get(Constants.loc(key));
+            String key = tag.getString("ability_" + i);
+            Ability power = AbilityInit.REG.get().get(SpiteConstants.loc(key));
             this.abilities.set(i, power);
         }
-        if (!readingFromDisk){
+        if (!readingFromDisk) {
             this.tickingAbilities.clear();
-            CompoundTag tickingTag = nbt.getCompound("ticking_abilities");
+            CompoundTag tickingTag = tag.getCompound("ticking_abilities");
             for (int j = 0; j < tickingTag.size(); j++) {
                 String tickingKey = tickingTag.getString("ticking_ability_" + j);
                 if (tickingKey.equals(tickingKey)) {
-                    Ability tickingAbility = AbilityInit.REG.get().get(Constants.loc(tickingKey));
+                    Ability tickingAbility = AbilityInit.REG.get().get(SpiteConstants.loc(tickingKey));
                     this.tickingAbilities.add(Pair.of(tickingAbility, tickingTag.getLong("ticking_ability_time_" + j)));
                 }
             }
         }
+        CompoundTag portalTag = tag.getCompound("portalInfo");
+        if(portalTag.contains("portal1u")){
+            portalInfo = portalInfo.withPortal1(portalTag.getUUID("portal1u"), BlockPos.of(portalTag.getLong("portal1p")));
+        }
+        if(portalTag.contains("portal2u")){
+            portalInfo = portalInfo.withPortal2(portalTag.getUUID("portal2u"), BlockPos.of(portalTag.getLong("portal2p")));
+        }
+        portalInfo = portalInfo.withLastPortal(portalTag.getInt("lastPortal"));
     }
 
     @Override
@@ -182,7 +204,7 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
 
     @Override
     public void removeTickingAbility(Ability ability) {
-        getTickingAbilities().removeIf(pair -> pair.getFirst()==ability);
+        getTickingAbilities().removeIf(pair -> pair.getFirst() == ability);
         updateTracking();
     }
 
@@ -201,6 +223,28 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
             return AbilityInit.NONE.get();
         }
         return abilities.stream().filter(ability -> ability instanceof Active).toList().get(slot);
+    }
+
+    @Override
+    public void addPortal(UUID portal, BlockPos pos) {
+        int lastPortal = portalInfo.lastPortal();
+        if (lastPortal == 0) {
+            portalInfo = portalInfo.withPortal1(portal, pos).withLastPortal(1);
+        } else {
+            portalInfo = portalInfo.withPortal2(portal, pos).withLastPortal(0);
+        }
+        updateTracking();
+    }
+
+    @Override
+    public void removePortal(UUID portal) {
+        this.portalInfo = this.portalInfo.withoutPortal(portal);
+        updateTracking();
+    }
+
+    @Override
+    public PortalInfo getPortalInfo() {
+        return portalInfo;
     }
 
     @Override

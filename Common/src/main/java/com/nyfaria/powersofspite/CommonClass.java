@@ -4,6 +4,7 @@ import com.nyfaria.powersofspite.ability.api.Passive;
 import com.nyfaria.powersofspite.cap.AbilityHolder;
 import com.nyfaria.powersofspite.init.AbilityInit;
 import com.nyfaria.powersofspite.init.BlockInit;
+import com.nyfaria.powersofspite.init.CommandInit;
 import com.nyfaria.powersofspite.init.EntityInit;
 import com.nyfaria.powersofspite.init.ItemInit;
 import com.nyfaria.powersofspite.init.NetworkInit;
@@ -20,6 +21,7 @@ public class CommonClass {
         AbilityInit.loadClass();
         PowerInit.loadClass();
         NetworkInit.loadClass();
+        CommandInit.loadClass();
     }
 
 

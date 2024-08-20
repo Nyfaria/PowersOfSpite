@@ -12,10 +12,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.nyfaria.powerofspite.TheGifted"
+      "com.nyfaria.powersofspite.PowersOfSpite"
     ],
     "client": [
-      "com.nyfaria.powerofspite.TheGiftedClient"
+      "com.nyfaria.powersofspite.PowersOfSpiteClient"
+    ],
+    "cardinal-components": [
+      "com.nyfaria.powersofspite.cap.AbilityHolderAttacher"
     ]
   },
   "mixins": [
@@ -30,6 +33,12 @@
   "suggests": {
     "another-mod": "*"
   },
-  "accessWidener" : "accesstransformers.accesswidener"
+  "custom": {
+    "cardinal-components": [
+      "${mod_id}:ability_holder",
+      "${mod_id}:power_holder"
+    ]
+  },
+  "accessWidener": "accesstransformers.accesswidener"
 }
   

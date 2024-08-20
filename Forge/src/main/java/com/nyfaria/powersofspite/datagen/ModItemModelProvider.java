@@ -1,6 +1,7 @@
 package com.nyfaria.powersofspite.datagen;
 
-import com.nyfaria.powersofspite.Constants;
+import com.nyfaria.powersofspite.SpiteConstants;
+import com.nyfaria.powersofspite.init.BlockInit;
 import com.nyfaria.powersofspite.init.ItemInit;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +17,7 @@ import java.util.stream.Stream;
 
 public class ModItemModelProvider extends ItemModelProvider {
     public ModItemModelProvider(PackOutput generator, ExistingFileHelper existingFileHelper) {
-        super(generator, Constants.MODID, existingFileHelper);
+        super(generator, SpiteConstants.MODID, existingFileHelper);
     }
 
     @Override
@@ -25,15 +26,19 @@ public class ModItemModelProvider extends ItemModelProvider {
         //         .map(Supplier::get)
         //         .forEach(this::simpleHandHeldModel);
 
-         Stream.of(
-                         ItemInit.SPITE_SERUM
-                 )
-                 .map(Supplier::get)
-                 .forEach(this::simpleGeneratedModel);
+        Stream.of(
+                        ItemInit.SPITE_SERUM,
+                        ItemInit.RAW_SPITE,
+                        ItemInit.CHEMICAL_S
+                )
+                .map(Supplier::get)
+                .forEach(this::simpleGeneratedModel);
 
-        // Stream.of()
-        //         .map(Supplier::get)
-        //         .forEach(this::simpleBlockItemModel);
+        Stream.of(
+                        BlockInit.SPITE_ORE
+                )
+                .map(Supplier::get)
+                .forEach(this::simpleBlockItemModel);
     }
 
     protected ItemModelBuilder simpleBlockItemModel(Block block) {

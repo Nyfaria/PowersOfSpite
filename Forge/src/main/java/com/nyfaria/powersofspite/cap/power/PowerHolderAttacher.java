@@ -1,6 +1,6 @@
 package com.nyfaria.powersofspite.cap.power;
 
-import com.nyfaria.powersofspite.Constants;
+import com.nyfaria.powersofspite.SpiteConstants;
 import dev._100media.capabilitysyncer.core.CapabilityAttacher;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -11,10 +11,10 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = Constants.MODID)
+@Mod.EventBusSubscriber(modid = SpiteConstants.MODID)
 public class PowerHolderAttacher extends CapabilityAttacher {
     public static final Capability<PowerHolderForge> CAPABILITY = getCapability(new CapabilityToken<>() {});
-    public static final ResourceLocation LOCATION = new ResourceLocation(Constants.MODID, "example");
+    public static final ResourceLocation LOCATION = new ResourceLocation(SpiteConstants.MODID, "example");
     private static final Class<PowerHolderForge> CAPABILITY_CLASS = PowerHolderForge.class;
 
     @SuppressWarnings("ConstantConditions")

@@ -1,6 +1,6 @@
 package com.nyfaria.powersofspite.client;
 
-import com.nyfaria.powersofspite.Constants;
+import com.nyfaria.powersofspite.SpiteConstants;
 import com.nyfaria.powersofspite.packets.s2c.SetAnimationPacket;
 import com.nyfaria.powersofspite.utils.MovementKey;
 import commonnetwork.api.Network;
@@ -45,7 +45,7 @@ public class AnimationHandler {
     }
     public static ModifierLayer<IAnimation> getModifiedLayer(Player player) {
         IAnimation iAnimation = PlayerAnimationAccess.
-                getPlayerAssociatedData((AbstractClientPlayer) player).get(Constants.modLoc( "animation"));
+                getPlayerAssociatedData((AbstractClientPlayer) player).get(SpiteConstants.modLoc( "animation"));
 
 
         if (iAnimation != null && iAnimation instanceof ModifierLayer<?>) {
@@ -56,7 +56,7 @@ public class AnimationHandler {
     }
     public static void updateAnimation(String animationName, Player player, boolean forcePut) {
         ModifierLayer<IAnimation> modifierLayer = getModifiedLayer(player);
-        ResourceLocation animationRL = Constants.modLoc(animationName);
+        ResourceLocation animationRL = SpiteConstants.modLoc(animationName);
         KeyframeAnimationPlayer newAnimation = new KeyframeAnimationPlayer(Objects.requireNonNull(PlayerAnimationRegistry.getAnimation(animationRL)));
         boolean replaceFromNothing = !currentPlayingAnimation.containsKey(player.getUUID());
 
