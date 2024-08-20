@@ -7,6 +7,7 @@ import com.nyfaria.powersofspite.ability.active.InvisibilityActive;
 import com.nyfaria.powersofspite.ability.active.PortalActive;
 import com.nyfaria.powersofspite.ability.active.SpeedActive;
 import com.nyfaria.powersofspite.ability.active.SwimSpeedActive;
+import com.nyfaria.powersofspite.ability.active.TeleportationActive;
 import com.nyfaria.powersofspite.ability.api.Ability;
 import com.nyfaria.powersofspite.ability.api.Passive;
 import com.nyfaria.powersofspite.ability.passive.DamageReductionPassive;
@@ -39,7 +40,7 @@ public class AbilityInit {
     public static RegistryObject<Ability> INVISIBILITY = ABILITIES.register("invisibility", InvisibilityActive::new);
     public static RegistryObject<Ability> INTANGIBILITY = ABILITIES.register("intangibility", IntangibilityActive::new);
     public static RegistryObject<Ability> CLEAR_VISION = ABILITIES.register("clear_vision", Passive::new);
-    public static RegistryObject<Ability> TELEPORTATION = ABILITIES.register("teleportation", Passive::new);
+    public static RegistryObject<Ability> TELEPORTATION = ABILITIES.register("teleportation", TeleportationActive::new);
     public static RegistryObject<Ability> CLONE = ABILITIES.register("clone", ()->new CloneActive(2));
     public static RegistryObject<Ability> PORTAL = ABILITIES.register("portal", PortalActive::new);
 

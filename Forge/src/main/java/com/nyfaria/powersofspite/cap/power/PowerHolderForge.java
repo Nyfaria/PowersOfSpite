@@ -76,7 +76,7 @@ public class PowerHolderForge extends PlayerCapability implements PowerHolder {
     @Override
     public void setPower(int slot, Power power) {
         powers.set(slot, power);
-        power.getAbilities().forEach(ability -> Services.PLATFORM.getAbilityHolder(getPlayer()).addAbility(ability));
+        Services.PLATFORM.getAbilityHolder(getPlayer()).addAll(power.getAbilities(),true);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class PowerHolderForge extends PlayerCapability implements PowerHolder {
     @Override
     public void clearPowers() {
         AbilityHolder abilityHolder = Services.PLATFORM.getAbilityHolder(getPlayer());
-        abilityHolder.clearAbilities();
+        abilityHolder.clearAbilities(true);
         powers.replaceAll(ignored -> PowerInit.NONE.get());
         updateTracking();
     }
@@ -107,7 +107,6 @@ public class PowerHolderForge extends PlayerCapability implements PowerHolder {
         int slot = powers.indexOf(PowerInit.NONE.get());
         if (slot != -1) {
             powers.set(slot, power);
-            Services.PLATFORM.getAbilityHolder(getPlayer()).addAll(power.getAbilities());
             updateTracking();
         }
         evaluateAbilities();
@@ -142,5 +141,6 @@ public class PowerHolderForge extends PlayerCapability implements PowerHolder {
     @Override
     public void load(CompoundTag holder) {
         deserializeNBT(holder,false);
+        evaluateAbilities();
     }
 }

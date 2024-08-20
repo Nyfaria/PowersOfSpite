@@ -54,11 +54,11 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
             }
         }
         CompoundTag portalTag = new CompoundTag();
-        if(portalInfo.portal1() != null){
+        if (portalInfo.portal1() != null) {
             portalTag.putUUID("portal1u", portalInfo.portal1());
             portalTag.putLong("portal1p", portalInfo.pos1().asLong());
         }
-        if(portalInfo.portal2() != null){
+        if (portalInfo.portal2() != null) {
             portalTag.putUUID("portal2u", portalInfo.portal2());
             portalTag.putLong("portal2p", portalInfo.pos2().asLong());
         }
@@ -86,10 +86,10 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
             }
         }
         CompoundTag portalTag = tag.getCompound("portalInfo");
-        if(portalTag.contains("portal1u")){
+        if (portalTag.contains("portal1u")) {
             portalInfo = portalInfo.withPortal1(portalTag.getUUID("portal1u"), BlockPos.of(portalTag.getLong("portal1p")));
         }
-        if(portalTag.contains("portal2u")){
+        if (portalTag.contains("portal2u")) {
             portalInfo = portalInfo.withPortal2(portalTag.getUUID("portal2u"), BlockPos.of(portalTag.getLong("portal2p")));
         }
         portalInfo = portalInfo.withLastPortal(portalTag.getInt("lastPortal"));
@@ -123,12 +123,13 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
     }
 
     @Override
-    public void setAbility(int slot, Ability ability) {
+    public void setAbility(int slot, Ability ability, boolean update) {
         abilities.set(slot, ability);
         if (abilities.get(slot) instanceof Passive passive) {
             passive.onActivate(getPlayer());
         }
-        updateTracking();
+        if (update)
+            updateTracking();
     }
 
     @Override
@@ -137,23 +138,25 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
     }
 
     @Override
-    public void removeAbility(int slot) {
+    public void removeAbility(int slot, boolean update) {
         if (abilities.get(slot) instanceof Passive passive) {
             passive.onDeactivate(getPlayer());
         }
         abilities.set(slot, AbilityInit.NONE.get());
-        updateTracking();
+        if (update)
+            updateTracking();
     }
 
     @Override
-    public void clearAbilities() {
+    public void clearAbilities(boolean update) {
         abilities.replaceAll(ability -> {
             if (ability instanceof Passive passive) {
                 passive.onDeactivate(getPlayer());
             }
             return AbilityInit.NONE.get();
         });
-        updateTracking();
+        if (update)
+            updateTracking();
     }
 
     @Override
@@ -162,7 +165,7 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
     }
 
     @Override
-    public void addAbility(Ability ability) {
+    public void addAbility(Ability ability, boolean update) {
         if (!hasAbility(ability)) {
             for (int i = 0; i < abilities.size(); i++) {
                 if (abilities.get(i).equals(AbilityInit.NONE.get())) {
@@ -173,12 +176,13 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
                     return;
                 }
             }
-            updateTracking();
+            if (update)
+                updateTracking();
         }
     }
 
     @Override
-    public void removeAbility(Ability ability) {
+    public void removeAbility(Ability ability, boolean update) {
         for (int i = 0; i < abilities.size(); i++) {
             if (abilities.get(i).equals(ability)) {
                 if (abilities.get(i) instanceof Passive passive) {
@@ -258,10 +262,12 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
     }
 
     @Override
-    public void addAll(List<Ability> abilities) {
+    public void addAll(List<Ability> abilities, boolean update) {
         for (Ability ability : abilities) {
-            addAbility(ability);
+            addAbility(ability, false);
         }
+        if (update)
+            updateTracking();
     }
 
     @Override

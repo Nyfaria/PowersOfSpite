@@ -10,7 +10,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-public class TeleportationAbility extends Active {
+public class TeleportationActive extends Active {
     @Override
     public void onUse(Player player) {
         HitResult result = SpiteUtils.scanLineOfSightHit(player, 20);

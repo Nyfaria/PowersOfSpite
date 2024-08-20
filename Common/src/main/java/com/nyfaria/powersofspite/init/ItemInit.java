@@ -15,14 +15,14 @@ public class ItemInit {
     public static final RegistrationProvider<Item> ITEMS = RegistrationProvider.get(Registries.ITEM, SpiteConstants.MODID);
     public static final RegistrationProvider<CreativeModeTab> CREATIVE_MODE_TABS = RegistrationProvider.get(Registries.CREATIVE_MODE_TAB, SpiteConstants.MODID);
     public static final RegistryObject<CreativeModeTab> TAB = CREATIVE_MODE_TABS.register(SpiteConstants.MODID, () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
-            .icon(() -> new ItemStack(Items.DIRT))
+            .icon(() -> new ItemStack(ItemInit.SPITE_SERUM.get()))
             .displayItems(
                     (itemDisplayParameters, output) -> {
                         ITEMS.getEntries().forEach((registryObject) -> output.accept(new ItemStack(registryObject.get())));
                     }).title(Component.translatable("itemGroup." + SpiteConstants.MODID + ".tab"))
             .build());
-    public static final RegistryObject<Item> SPITE_SERUM = ITEMS.register("spite_serum", () -> new SerumSyringeItem(getItemProperties()));
-    public static final RegistryObject<Item> CHEMICAL_S = ITEMS.register("chemical_s", ()->new Item(getItemProperties()));
+    public static final RegistryObject<Item> SPITE_SERUM = ITEMS.register("spite_serum", () -> new SerumSyringeItem(getItemProperties().stacksTo(1)));
+    public static final RegistryObject<Item> CHEMICAL_S = ITEMS.register("chemical_s", ()->new Item(getItemProperties().stacksTo(1)));
     public static final RegistryObject<Item> RAW_SPITE = ITEMS.register("raw_spite", ()->new Item(getItemProperties()));
     public static Item.Properties getItemProperties() {
         return new Item.Properties();

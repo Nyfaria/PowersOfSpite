@@ -59,9 +59,11 @@ public class PortalEntity extends Entity {
 
     @Override
     public void remove(RemovalReason pReason) {
-        AbilityHolder holder = Services.PLATFORM.getAbilityHolder(getOwner());
-        if (holder != null) {
-            holder.removePortal(getUUID());
+        if(getOwner()!=null) {
+            AbilityHolder holder = Services.PLATFORM.getAbilityHolder(getOwner());
+            if (holder != null) {
+                holder.removePortal(getUUID());
+            }
         }
         super.remove(pReason);
     }

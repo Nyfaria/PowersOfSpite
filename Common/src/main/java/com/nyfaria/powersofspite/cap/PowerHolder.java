@@ -22,9 +22,10 @@ public interface PowerHolder {
     void load(CompoundTag holder);
     default void evaluateAbilities(){
         AbilityHolder abilityHolder = Services.PLATFORM.getAbilityHolder(getPlayer());
-        abilityHolder.clearAbilities();
+        abilityHolder.clearAbilities(false);
         for (Power power : getPowers()) {
-            abilityHolder.addAll(power.getAbilities());
+            abilityHolder.addAll(power.getAbilities(), false);
         }
+        abilityHolder.updateTracking();
     }
 }

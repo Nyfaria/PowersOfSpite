@@ -11,6 +11,7 @@ import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -56,8 +57,8 @@ public class ModDataPackProvider extends DatapackBuiltinEntriesProvider {
                         Feature.ORE,
                         new OreConfiguration(
                                 List.of(OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), BlockInit.SPITE_ORE.get().defaultBlockState())),
-                                1,
-                                1
+                                3,
+                                0
                         )
                 )
         );
@@ -68,9 +69,9 @@ public class ModDataPackProvider extends DatapackBuiltinEntriesProvider {
     public static void placedFeatures(BootstapContext<PlacedFeature> context) {
         context.register(SpiteConstants.SPITE_ORE_PLACED, new PlacedFeature(context.lookup(Registries.CONFIGURED_FEATURE).get(SpiteConstants.SPITE_ORE).get(),
                         List.of(
-                                CountPlacement.of(UniformInt.of(4,10)),
-                                HeightRangePlacement.uniform(VerticalAnchor.absolute(-64),VerticalAnchor.absolute(-40)),
+                                CountPlacement.of(UniformInt.of(1,2)),
                                 InSquarePlacement.spread(),
+                                HeightRangePlacement.uniform(VerticalAnchor.absolute(-64),VerticalAnchor.absolute(-40)),
                                 BiomeFilter.biome()
                         )
                 )

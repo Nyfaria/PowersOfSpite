@@ -16,19 +16,19 @@ public interface AbilityHolder {
 
     List<Pair<Ability, Long>> getTickingAbilities();
 
-    void setAbility(int slot, Ability ability);
+    void setAbility(int slot, Ability ability, boolean update);
 
     Ability getAbility(int slot);
 
-    void removeAbility(int slot);
+    void removeAbility(int slot, boolean update);
 
-    void clearAbilities();
+    void clearAbilities(boolean update);
 
     boolean hasAbility(Ability ability);
 
-    void addAbility(Ability ability);
+    void addAbility(Ability ability, boolean update);
 
-    void removeAbility(Ability ability);
+    void removeAbility(Ability ability, boolean update);
 
     Player getPlayer();
 
@@ -70,7 +70,7 @@ public interface AbilityHolder {
 
     void load(CompoundTag holder);
 
-    void addAll(List<Ability> abilities);
+    void addAll(List<Ability> abilities, boolean update);
 
     default BlockPos getOtherPortalPos(UUID uuid){
         if(getPortalInfo().portal1 == uuid){
@@ -81,6 +81,8 @@ public interface AbilityHolder {
         }
         return BlockPos.ZERO;
     }
+
+    void updateTracking();
 
     record PortalInfo(UUID portal1, BlockPos pos1, UUID portal2, BlockPos pos2, int lastPortal) {
         public PortalInfo(){
