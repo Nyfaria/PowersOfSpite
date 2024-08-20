@@ -38,14 +38,14 @@ loom {
             vmArgs("-XX:+AllowEnhancedClassRedefinition")
             setConfigName("Fabric Client")
             ideConfigGenerated(true)
-            runDir("client")
+            runDir("clientRun")
         }
         serverRun {
             server()
             vmArgs("-XX:+AllowEnhancedClassRedefinition")
             setConfigName("Fabric Server")
             ideConfigGenerated(true)
-            runDir("server")
+            runDir("serverRun")
         }
     }
     mixin {
