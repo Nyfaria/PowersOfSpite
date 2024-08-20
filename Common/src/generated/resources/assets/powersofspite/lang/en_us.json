@@ -1,4 +1,25 @@
 {
+  "ability.powersofspite.bounce": "Bounce",
+  "ability.powersofspite.flight": "Flight",
+  "ability.powersofspite.flight.desc0": "• Allows you to fly, double jump to start.",
+  "ability.powersofspite.flight.desc1": "• While Sprinting during flight, you will move in the direction you are looking",
+  "ability.powersofspite.half_damage": "Half Damage",
+  "ability.powersofspite.heavy_hitter": "Heavy Hitter",
+  "ability.powersofspite.invisibility": "Invisibility",
+  "ability.powersofspite.none": "None",
+  "ability.powersofspite.none.desc0": "• Please select a Power to the Left!",
+  "ability.powersofspite.powerful_damage": "Powerful Damage",
+  "ability.powersofspite.speed_digging": "Speed Digging",
+  "ability.powersofspite.super_speed": "Super Speed",
+  "ability.powersofspite.swim_speed": "Swim Speed",
+  "ability.powersofspite.water_breathing": "Water Breathing",
   "item.powersofspite.spite_serum": "Spite Serum",
-  "itemGroup.powersofspite": "Powers of Spite"
+  "itemGroup.powersofspite": "Powers of Spite",
+  "power.powersofspite.elasticity": "Elasticity",
+  "power.powersofspite.flight": "Flight",
+  "power.powersofspite.flight.desc0": "• Passive Ability of Flight",
+  "power.powersofspite.invisibility": "Invisibility",
+  "power.powersofspite.none": "None",
+  "power.powersofspite.super_speed": "Super Speed",
+  "power.powersofspite.super_strength": "Super Strength"
 }

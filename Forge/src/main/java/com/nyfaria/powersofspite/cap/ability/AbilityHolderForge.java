@@ -34,7 +34,21 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
         CompoundTag tag = new CompoundTag();
         for (int i = 0; i < this.abilities.size(); i++) {
             Ability ability = this.abilities.get(i);
-            tag.putString("ability_" + i, AbilityInit.ABILITIES.getRegistry().getKey(ability).toString());
+            tag.putString("ability_" + i, AbilityInit.REG.get().getKey(ability).toString());
+        }
+        if(!savingToDisk){
+            CompoundTag tickingTag = new CompoundTag();
+            for (int i = 0; i < this.tickingAbilities.size(); i++) {
+                Pair<Ability, Long> pair = this.tickingAbilities.get(i);
+                if(pair.getFirst() == null){
+                    continue;
+                }
+                tickingTag.putString("ticking_ability_" + i, AbilityInit.REG.get().getKey(pair.getFirst()).toString());
+                tickingTag.putLong("ticking_ability_time_" + i, pair.getSecond());
+            }
+            if (!tickingTag.isEmpty()) {
+                tag.put("ticking_abilities", tickingTag);
+            }
         }
         return tag;
     }
@@ -43,8 +57,19 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
     public void deserializeNBT(CompoundTag nbt, boolean readingFromDisk) {
         for (int i = 0; i < this.abilities.size(); i++) {
             String key = nbt.getString("ability_" + i);
-            Ability power = AbilityInit.ABILITIES.getRegistry().get(Constants.loc(key));
+            Ability power = AbilityInit.REG.get().get(Constants.loc(key));
             this.abilities.set(i, power);
+        }
+        if (!readingFromDisk){
+            this.tickingAbilities.clear();
+            CompoundTag tickingTag = nbt.getCompound("ticking_abilities");
+            for (int j = 0; j < tickingTag.size(); j++) {
+                String tickingKey = tickingTag.getString("ticking_ability_" + j);
+                if (tickingKey.equals(tickingKey)) {
+                    Ability tickingAbility = AbilityInit.REG.get().get(Constants.loc(tickingKey));
+                    this.tickingAbilities.add(Pair.of(tickingAbility, tickingTag.getLong("ticking_ability_time_" + j)));
+                }
+            }
         }
     }
 
@@ -55,7 +80,7 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
 
     @Override
     public void updateTracking() {
-        if (this.entity.level().isClientSide) {
+        if (!this.entity.level().isClientSide) {
             Network.getNetworkHandler().sendToAllClients(new UpdateAbilityCapPacket(getPlayer().getUUID(), save()), getPlayer().getServer());
         }
     }
@@ -100,7 +125,12 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
 
     @Override
     public void clearAbilities() {
-        abilities = NonNullList.withSize(3, AbilityInit.NONE.get());
+        abilities.replaceAll(ability -> {
+            if (ability instanceof Passive passive) {
+                passive.onDeactivate(getPlayer());
+            }
+            return AbilityInit.NONE.get();
+        });
         updateTracking();
     }
 

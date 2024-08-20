@@ -25,6 +25,8 @@ public interface AbilityHolder {
     default void tick(){
         if(getPlayer().level().isClientSide) return;
         for (Pair<Ability, Long> tickingAbility : getTickingAbilities()) {
+            if(tickingAbility.getFirst()== null)
+                continue;
             tickingAbility.getFirst().onTick(getPlayer(), getPlayer().level().getGameTime() - tickingAbility.getSecond());
         }
     }

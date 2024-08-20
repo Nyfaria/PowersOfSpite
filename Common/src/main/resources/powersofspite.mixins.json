@@ -5,13 +5,19 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "${mod_id}.refmap.json",
   "mixins": [
+    "BlockBehaviourMixin",
+    "BlockMixin",
+    "EntityMixin",
     "LivingEntityMixin",
     "MobEffectUtilMixin",
     "PlayerMixin"
   ],
   "client": [
     "ExampleMixin",
-    "KeyboardHandlerMixin"
+    "FogRendererMixin",
+    "GameRendererMixin",
+    "KeyboardHandlerMixin",
+    "LocalPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -6,10 +6,13 @@ import com.nyfaria.powersofspite.power.api.Power;
 
 import java.util.List;
 
-public class Elasticity implements Power {
+public class TritonPower implements Power {
     @Override
     public List<Ability> getAbilities() {
-        return List.of(AbilityInit.HALF_DAMAGE.get(), AbilityInit.BOUNCE.get());
+        return List.of(
+                AbilityInit.WATER_BREATHING.get(),
+                AbilityInit.SWIM_SPEED.get()
+        );
     }
 
     @Override

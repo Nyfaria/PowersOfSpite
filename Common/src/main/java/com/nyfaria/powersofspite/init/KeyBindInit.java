@@ -1,7 +1,9 @@
 package com.nyfaria.powersofspite.init;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import com.nyfaria.powersofspite.client.screen.PowerScreen;
 import com.nyfaria.powersofspite.packets.s2c.UseAbilityPacket;
+import com.nyfaria.powersofspite.power.api.Power;
 import commonnetwork.api.Network;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -13,6 +15,7 @@ import java.util.List;
 
 public class KeyBindInit {
     public static List<KeyMapping> ABILITY_KEYS = new ArrayList<>();
+    public static KeyMapping OPEN_SCREEN = new KeyMapping("key.powersofspite.open_screen", InputConstants.KEY_V, "key.categories.powersofspite");
 
     public static void initKeyBinds() {
         for (int i = 0; i < 3; i++) {
@@ -33,6 +36,9 @@ public class KeyBindInit {
                 if (isKey(key,scanCode, abilityKey)) {
                     Network.getNetworkHandler().sendToServer(new UseAbilityPacket(i,action));
                 }
+            }
+            if(didPress(key, scanCode, action, OPEN_SCREEN)) {
+                mc.setScreen(new PowerScreen());
             }
         }
     }

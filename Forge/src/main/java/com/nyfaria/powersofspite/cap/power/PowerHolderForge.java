@@ -1,6 +1,7 @@
 package com.nyfaria.powersofspite.cap.power;
 
 import com.nyfaria.powersofspite.Constants;
+import com.nyfaria.powersofspite.cap.AbilityHolder;
 import com.nyfaria.powersofspite.platform.Services;
 import com.nyfaria.powersofspite.cap.PowerHolder;
 import com.nyfaria.powersofspite.init.PowerInit;
@@ -12,6 +13,7 @@ import dev._100media.capabilitysyncer.network.EntityCapabilityStatusPacket;
 import dev._100media.capabilitysyncer.network.SimpleEntityCapabilityStatusPacket;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.simple.SimpleChannel;
@@ -56,8 +58,8 @@ public class PowerHolderForge extends PlayerCapability implements PowerHolder {
 
     @Override
     public void updateTracking() {
-        if (this.entity.level().isClientSide){
-            Network.getNetworkHandler().sendToAllClients(new UpdatePowerCapPacket(this.entity.getUUID(),save()), this.entity.getServer());
+        if (!this.entity.level().isClientSide){
+            Network.getNetworkHandler().sendToClientsLoadingPos(new UpdatePowerCapPacket(this.entity.getUUID(),save()), (ServerLevel)this.entity.level(), player.blockPosition());
         }
     }
 
@@ -89,9 +91,10 @@ public class PowerHolderForge extends PlayerCapability implements PowerHolder {
 
     @Override
     public void clearPowers() {
-        for (int i = 0; i < powers.size(); i++) {
-            powers.set(i, PowerInit.NONE.get());
-        }
+        AbilityHolder abilityHolder = Services.PLATFORM.getAbilityHolder(getPlayer());
+        abilityHolder.clearAbilities();
+        powers.replaceAll(ignored -> PowerInit.NONE.get());
+        updateTracking();
     }
 
     @Override
@@ -105,6 +108,7 @@ public class PowerHolderForge extends PlayerCapability implements PowerHolder {
         if (slot != -1) {
             powers.set(slot, power);
             Services.PLATFORM.getAbilityHolder(getPlayer()).addAll(power.getAbilities());
+            updateTracking();
         }
     }
 

@@ -27,7 +27,7 @@ public class SerumSyringeItem extends Item {
     public @NotNull InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         if (!pLevel.isClientSide) {
             if (pUsedHand == InteractionHand.MAIN_HAND) {
-                if(Services.PLATFORM.getPowerHolder(pPlayer).getPowers().stream().anyMatch(power->power==PowerInit.NONE.get())){
+                if (Services.PLATFORM.getPowerHolder(pPlayer).getPowers().stream().anyMatch(power -> power == PowerInit.NONE.get())) {
                     pPlayer.startUsingItem(pUsedHand);
                     return InteractionResultHolder.consume(pPlayer.getItemInHand(pUsedHand));
                 } else {
@@ -40,22 +40,24 @@ public class SerumSyringeItem extends Item {
 
     @Override
     public @NotNull ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-        float activeChance = Services.PLATFORM.getAbilityHolder((Player) pLivingEntity).getAbilities().stream().anyMatch(ability -> ability instanceof Active) ? 0.01f : 0.5f;
-        List<Power> potentialAbilities;
-        if (pLevel.random.nextFloat() < activeChance) {
-            potentialAbilities = PowerInit.POWERS.getEntries().stream().filter(powerRO -> !Services.PLATFORM.getPowerHolder((Player)pLivingEntity).hasPower(powerRO.get())).map(RegistryObject::get).toList();
-        } else {
-            potentialAbilities = PowerInit.POWERS.getEntries().stream().filter(powerRO -> !powerRO.get().hasActive() && !Services.PLATFORM.getPowerHolder((Player)pLivingEntity).hasPower(powerRO.get())).map(RegistryObject::get).toList();
-        }
-        if(potentialAbilities.isEmpty()){
-            potentialAbilities = PowerInit.POWERS.getEntries().stream().filter(powerRO -> !Services.PLATFORM.getPowerHolder((Player)pLivingEntity).hasPower(powerRO.get())).map(RegistryObject::get).toList();
-        }
-        if(potentialAbilities.isEmpty()){
-            return pStack.copy();
+        if (!pLevel.isClientSide) {
+            float activeChance = Services.PLATFORM.getAbilityHolder((Player) pLivingEntity).getAbilities().stream().anyMatch(ability -> ability instanceof Active) ? 0.01f : 0.5f;
+            List<Power> potentialAbilities;
+            if (pLevel.random.nextFloat() < activeChance) {
+                potentialAbilities = PowerInit.POWERS.getEntries().stream().filter(powerRO -> !Services.PLATFORM.getPowerHolder((Player) pLivingEntity).hasPower(powerRO.get())).map(RegistryObject::get).toList();
+            } else {
+                potentialAbilities = PowerInit.POWERS.getEntries().stream().filter(powerRO -> !powerRO.get().hasActive() && !Services.PLATFORM.getPowerHolder((Player) pLivingEntity).hasPower(powerRO.get())).map(RegistryObject::get).toList();
+            }
+            if (potentialAbilities.isEmpty()) {
+                potentialAbilities = PowerInit.POWERS.getEntries().stream().filter(powerRO -> !Services.PLATFORM.getPowerHolder((Player) pLivingEntity).hasPower(powerRO.get())).map(RegistryObject::get).toList();
+            }
+            if (potentialAbilities.isEmpty()) {
+                return pStack.copy();
+            }
+            Power power = potentialAbilities.get(pLevel.random.nextInt(potentialAbilities.size()));
+            Services.PLATFORM.getPowerHolder((Player) pLivingEntity).addPower(power);
         }
         pStack.shrink(1);
-        Power power = potentialAbilities.get(pLevel.random.nextInt(potentialAbilities.size()));
-        Services.PLATFORM.getPowerHolder((Player) pLivingEntity).addPower(power);
         return pStack.copy();
     }
 
@@ -66,6 +68,9 @@ public class SerumSyringeItem extends Item {
 
     @Override
     public int getUseDuration(ItemStack pStack) {
+        if (Services.PLATFORM.getEnvironmentName().equals("development")) {
+            return 1;
+        }
         return 20 * 10;
     }
 }

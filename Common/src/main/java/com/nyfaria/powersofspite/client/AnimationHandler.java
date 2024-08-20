@@ -79,6 +79,5 @@ public class AnimationHandler {
         } else {
             AnimationHandler.setAnimation("none", player);
         }
-
     }
 }

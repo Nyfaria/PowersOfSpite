@@ -16,7 +16,7 @@ public class SwimSpeedActive extends Active {
         this.amount = amount;
     }
     public SwimSpeedActive() {
-        this(0.5d);
+        this(6.0d);
     }
     @Override
     public void onToggle(Player player, boolean onOff) {
