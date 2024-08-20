@@ -15,10 +15,12 @@ import dev._100media.capabilitysyncer.network.SimpleEntityCapabilityStatusPacket
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.simple.SimpleChannel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +29,7 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
     private List<Ability> abilities = NonNullList.withSize(9, AbilityInit.NONE.get());
     private List<Pair<Ability, Long>> tickingAbilities = NonNullList.create();
     private PortalInfo portalInfo = new PortalInfo();
+    private List<UUID> clones = new ArrayList<>();
 
     protected AbilityHolderForge(Player entity) {
         super(entity);
@@ -64,6 +67,11 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
         }
         portalTag.putInt("lastPortal", portalInfo.lastPortal());
         tag.put("portalInfo", portalTag);
+        CompoundTag cloneTag = new CompoundTag();
+        for (int i = 0; i < clones.size(); i++) {
+            cloneTag.putUUID("clone_" + i, clones.get(i));
+        }
+        tag.put("clones", cloneTag);
         return tag;
     }
 
@@ -233,9 +241,15 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
     public void addPortal(UUID portal, BlockPos pos) {
         int lastPortal = portalInfo.lastPortal();
         if (lastPortal == 0) {
-            portalInfo = portalInfo.withPortal1(portal, pos).withLastPortal(1);
+            if(portalInfo.portal2() != null){
+                ((ServerLevel)getPlayer().level()).getEntity(portalInfo.portal2()).discard();
+            }
+            portalInfo = portalInfo.withPortal2(portal, pos).withLastPortal(1);
         } else {
-            portalInfo = portalInfo.withPortal2(portal, pos).withLastPortal(0);
+            if(portalInfo.portal1() != null){
+                ((ServerLevel)getPlayer().level()).getEntity(portalInfo.portal1()).discard();
+            }
+            portalInfo = portalInfo.withPortal1(portal, pos).withLastPortal(0);
         }
         updateTracking();
     }
@@ -268,6 +282,17 @@ public class AbilityHolderForge extends PlayerCapability implements AbilityHolde
         }
         if (update)
             updateTracking();
+    }
+
+    @Override
+    public List<UUID> getClones() {
+        return clones;
+    }
+
+    @Override
+    public void addClone(UUID clone) {
+        clones.add(clone);
+        updateTracking();
     }
 
     @Override

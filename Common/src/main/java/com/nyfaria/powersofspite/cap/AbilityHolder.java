@@ -74,13 +74,25 @@ public interface AbilityHolder {
 
     default BlockPos getOtherPortalPos(UUID uuid){
         if(getPortalInfo().portal1 == uuid){
+            if(((ServerLevel)getPlayer().level()).getEntity(getPortalInfo().portal2) == null){
+                return BlockPos.ZERO;
+            }
             return getPortalInfo().pos2;
         }
         if(getPortalInfo().portal2 == uuid){
+            if(((ServerLevel)getPlayer().level()).getEntity(getPortalInfo().portal1) == null){
+                return BlockPos.ZERO;
+            }
             return getPortalInfo().pos1;
         }
         return BlockPos.ZERO;
     }
+    List<UUID> getClones();
+    default int getCloneCount(){
+        getClones().removeIf(uuid -> ((ServerLevel)getPlayer().level()).getEntity(uuid) == null);
+        return getClones().size();
+    };
+    void addClone(UUID clone);
 
     void updateTracking();
 

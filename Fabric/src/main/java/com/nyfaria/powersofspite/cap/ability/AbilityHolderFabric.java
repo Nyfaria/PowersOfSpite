@@ -20,6 +20,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,7 +30,7 @@ public class AbilityHolderFabric implements AbilityHolder, ComponentV3, Componen
     private List<Pair<Ability, Long>> tickingAbilities = NonNullList.create();
     private Player entity;
     private PortalInfo portalInfo = new PortalInfo();
-
+    private List<UUID> clones = new ArrayList<>();
     public AbilityHolderFabric(Player entity) {
         this.entity = entity;
     }
@@ -51,13 +52,18 @@ public class AbilityHolderFabric implements AbilityHolder, ComponentV3, Componen
             }
         }
         CompoundTag portalTag = tag.getCompound("portalInfo");
-        if(portalTag.contains("portal1u")){
+        if (portalTag.contains("portal1u")) {
             portalInfo = portalInfo.withPortal1(portalTag.getUUID("portal1u"), BlockPos.of(portalTag.getLong("portal1p")));
         }
-        if(portalTag.contains("portal2u")){
+        if (portalTag.contains("portal2u")) {
             portalInfo = portalInfo.withPortal2(portalTag.getUUID("portal2u"), BlockPos.of(portalTag.getLong("portal2p")));
         }
         portalInfo = portalInfo.withLastPortal(portalTag.getInt("lastPortal"));
+        clones.clear();
+        CompoundTag cloneTag = tag.getCompound("clones");
+        for (int i = 0; i < cloneTag.size(); i++) {
+            clones.add(cloneTag.getUUID("clone_" + i));
+        }
     }
 
     @Override
@@ -89,6 +95,11 @@ public class AbilityHolderFabric implements AbilityHolder, ComponentV3, Componen
         }
         portalTag.putInt("lastPortal", portalInfo.lastPortal());
         tag.put("portalInfo", portalTag);
+        CompoundTag cloneTag = new CompoundTag();
+        for (int i = 0; i < clones.size(); i++) {
+            cloneTag.putUUID("clone_" + i, clones.get(i));
+        }
+        tag.put("clones", cloneTag);
 
     }
 
@@ -109,12 +120,14 @@ public class AbilityHolderFabric implements AbilityHolder, ComponentV3, Componen
     }
 
     @Override
-    public void setAbility(int slot, Ability ability) {
+    public void setAbility(int slot, Ability ability, boolean update) {
         abilities.set(slot, ability);
         if (abilities.get(slot) instanceof Passive passive) {
             passive.onActivate(getPlayer());
         }
-        updateTracking();
+        if (update) {
+            updateTracking();
+        }
     }
 
     @Override
@@ -123,23 +136,27 @@ public class AbilityHolderFabric implements AbilityHolder, ComponentV3, Componen
     }
 
     @Override
-    public void removeAbility(int slot) {
+    public void removeAbility(int slot, boolean update) {
         if (abilities.get(slot) instanceof Passive passive) {
             passive.onDeactivate(getPlayer());
         }
         abilities.set(slot, AbilityInit.NONE.get());
-        updateTracking();
+        if (update) {
+            updateTracking();
+        }
     }
 
     @Override
-    public void clearAbilities() {
+    public void clearAbilities(boolean update) {
         abilities.replaceAll(ability -> {
             if (ability instanceof Passive passive) {
                 passive.onDeactivate(getPlayer());
             }
             return AbilityInit.NONE.get();
         });
-        updateTracking();
+        if (update) {
+            updateTracking();
+        }
     }
 
     @Override
@@ -148,7 +165,7 @@ public class AbilityHolderFabric implements AbilityHolder, ComponentV3, Componen
     }
 
     @Override
-    public void addAbility(Ability ability) {
+    public void addAbility(Ability ability, boolean update) {
         if (!hasAbility(ability)) {
             for (int i = 0; i < abilities.size(); i++) {
                 if (abilities.get(i).equals(AbilityInit.NONE.get())) {
@@ -159,12 +176,14 @@ public class AbilityHolderFabric implements AbilityHolder, ComponentV3, Componen
                     return;
                 }
             }
-            updateTracking();
+            if (update) {
+                updateTracking();
+            }
         }
     }
 
     @Override
-    public void removeAbility(Ability ability) {
+    public void removeAbility(Ability ability, boolean update) {
         for (int i = 0; i < abilities.size(); i++) {
             if (abilities.get(i).equals(ability)) {
                 if (abilities.get(i) instanceof Passive passive) {
@@ -173,7 +192,9 @@ public class AbilityHolderFabric implements AbilityHolder, ComponentV3, Componen
                 abilities.set(i, AbilityInit.NONE.get());
             }
         }
-        updateTracking();
+        if (update) {
+            updateTracking();
+        }
     }
 
     @Override
@@ -246,10 +267,24 @@ public class AbilityHolderFabric implements AbilityHolder, ComponentV3, Componen
     }
 
     @Override
-    public void addAll(List<Ability> abilities) {
+    public void addAll(List<Ability> abilities, boolean update) {
         for (Ability ability : abilities) {
-            addAbility(ability);
+            addAbility(ability, false);
         }
+        if (update) {
+            updateTracking();
+        }
+    }
+
+    @Override
+    public List<UUID> getClones() {
+        return clones;
+    }
+
+    @Override
+    public void addClone(UUID clone) {
+        clones.add(clone);
+        updateTracking();
     }
 
 
