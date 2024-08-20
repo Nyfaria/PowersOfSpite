@@ -69,7 +69,7 @@ public class ModLangProvider extends LanguageProvider {
         add(SpiteConstants.getAbilityDescription(AbilityInit.FLIGHT.get(),1), "• While Sprinting during flight, you will move in the direction you are looking");
         add(SpiteConstants.getAbilityDescription(AbilityInit.NONE.get(),0),"• Please select a Power to the Left!");
         add(SpiteConstants.getAbilityDescription(AbilityInit.WATER_BREATHING.get(),0), "• Allows you to breathe underwater");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.SWIM_SPEED.get(),0), "• Reall fast swim speed");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.SWIM_SPEED.get(),0), "• Really fast swim speed");
         add(SpiteConstants.getAbilityDescription(AbilityInit.SUPER_SPEED.get(),0), "• Super fast speed");
         add(SpiteConstants.getAbilityDescription(AbilityInit.HALF_DAMAGE.get(),0), "• Take half damage");
         add(SpiteConstants.getAbilityDescription(AbilityInit.BOUNCE.get(),0), "• Bounce off of the ground");
