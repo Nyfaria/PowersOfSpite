@@ -13,7 +13,7 @@ public class GhostPower implements Power {
     }
 
     @Override
-    public boolean hasActive() {
+    public boolean hasActiveAbility() {
         return true;
     }
 }

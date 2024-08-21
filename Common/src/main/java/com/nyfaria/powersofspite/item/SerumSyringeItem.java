@@ -46,7 +46,7 @@ public class SerumSyringeItem extends Item {
             if (pLevel.random.nextFloat() < activeChance) {
                 potentialAbilities = PowerInit.POWERS.getEntries().stream().filter(powerRO -> !Services.PLATFORM.getPowerHolder((Player) pLivingEntity).hasPower(powerRO.get())).map(RegistryObject::get).toList();
             } else {
-                potentialAbilities = PowerInit.POWERS.getEntries().stream().filter(powerRO -> !powerRO.get().hasActive() && !Services.PLATFORM.getPowerHolder((Player) pLivingEntity).hasPower(powerRO.get())).map(RegistryObject::get).toList();
+                potentialAbilities = PowerInit.POWERS.getEntries().stream().filter(powerRO -> !powerRO.get().hasActiveAbility() && !Services.PLATFORM.getPowerHolder((Player) pLivingEntity).hasPower(powerRO.get())).map(RegistryObject::get).toList();
             }
             if (potentialAbilities.isEmpty()) {
                 potentialAbilities = PowerInit.POWERS.getEntries().stream().filter(powerRO -> !Services.PLATFORM.getPowerHolder((Player) pLivingEntity).hasPower(powerRO.get())).map(RegistryObject::get).toList();

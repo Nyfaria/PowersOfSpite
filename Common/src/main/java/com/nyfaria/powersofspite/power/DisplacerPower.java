@@ -13,7 +13,7 @@ public class DisplacerPower implements Power {
     }
 
     @Override
-    public boolean hasActive() {
+    public boolean hasActiveAbility() {
         return true;
     }
 }

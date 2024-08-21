@@ -8,7 +8,6 @@ import com.nyfaria.powersofspite.init.PowerInit;
 import com.nyfaria.powersofspite.platform.Services;
 import com.nyfaria.powersofspite.power.api.Power;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
@@ -31,7 +30,7 @@ public class PowersOfSpiteClient implements ClientModInitializer {
                 int y = 3;
                 int keyIndex = 0;
                 for (Power ability : holder.getPowers()) {
-                    if (ability.hasActive()) {
+                    if (ability.hasActiveAbility()) {
                         guiGraphics.blit(SpiteConstants.modLoc("textures/gui/power_slot.png"), 3, y, 0, 0, 20, 20, 20, 20);
                         ResourceLocation texture = SpiteConstants.modLoc("textures/power/" + PowerInit.REG.get().getKey(ability).getPath() + ".png");
                         guiGraphics.blit(texture, 5, y + 2, 0, 0, 16, 16, 16, 16);

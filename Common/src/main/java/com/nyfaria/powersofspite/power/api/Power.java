@@ -8,6 +8,6 @@ public interface Power {
 
     List<Ability> getAbilities();
 
-    boolean hasActive();
+    boolean hasActiveAbility();
 
 }

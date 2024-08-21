@@ -12,7 +12,7 @@ public class NonePower implements Power {
     }
 
     @Override
-    public boolean hasActive() {
+    public boolean hasActiveAbility() {
         return false;
     }
 }

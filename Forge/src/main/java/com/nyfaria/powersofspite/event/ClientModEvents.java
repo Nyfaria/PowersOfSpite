@@ -45,7 +45,7 @@ public class ClientModEvents {
                 int y = 3;
                 int keyIndex = 0;
                 for (Power ability : holder.getPowers()) {
-                    if (ability.hasActive()) {
+                    if (ability.hasActiveAbility()) {
                         guiGraphics.blit(SpiteConstants.modLoc("textures/gui/power_slot.png"), 3, y, 0, 0, 20, 20, 20, 20);
                         ResourceLocation texture = SpiteConstants.modLoc("textures/power/" + PowerInit.REG.get().getKey(ability).getPath() + ".png");
                         guiGraphics.blit(texture, 5, y + 2, 0, 0, 16, 16, 16, 16);
