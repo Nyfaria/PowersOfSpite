@@ -4,6 +4,7 @@ import com.nyfaria.powersofspite.ability.api.Passive;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import org.apache.commons.compress.archivers.StreamingNotSupportedException;
 
 import java.util.UUID;
 
@@ -17,8 +18,15 @@ public class DamagePassive extends Passive {
 
     @Override
     public void onActivate(Player player) {
-        if(player.getAttribute(Attributes.ATTACK_DAMAGE).getModifier(STRENGTH_UUID)== null){
-            player.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(new AttributeModifier(STRENGTH_UUID,"super_strength",amount, AttributeModifier.Operation.ADDITION));
+        if(player.getAttribute(Attributes.ATTACK_DAMAGE).getModifier(STRENGTH_UUID) == null) {
+            player.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(new AttributeModifier(STRENGTH_UUID,"super_strength", amount, AttributeModifier.Operation.ADDITION));
+        }
+    }
+
+    @Override
+    public void onDeactivate(Player player) {
+        if (player.getAttribute(Attributes.ATTACK_DAMAGE).getModifier(STRENGTH_UUID) != null) {
+            player.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(STRENGTH_UUID);
         }
     }
 

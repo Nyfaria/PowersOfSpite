@@ -18,7 +18,14 @@ public class KnockbackPassive extends Passive {
     @Override
     public void onActivate(Player player) {
         if(player.getAttribute(Attributes.ATTACK_KNOCKBACK).getModifier(KNOCKBACK_UUID)== null){
-            player.getAttribute(Attributes.ATTACK_KNOCKBACK).addTransientModifier(new AttributeModifier(KNOCKBACK_UUID,"super_strength",amount, AttributeModifier.Operation.ADDITION));
+            player.getAttribute(Attributes.ATTACK_KNOCKBACK).addTransientModifier(new AttributeModifier(KNOCKBACK_UUID,"knockback", amount, AttributeModifier.Operation.ADDITION));
+        }
+    }
+
+    @Override
+    public void onDeactivate(Player player) {
+        if (player.getAttribute(Attributes.ATTACK_DAMAGE).getModifier(KNOCKBACK_UUID) != null) {
+            player.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(KNOCKBACK_UUID);
         }
     }
 
