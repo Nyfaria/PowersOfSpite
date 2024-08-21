@@ -3,4 +3,4 @@
 - Fabric: Brewing Recipes Fixed.
 
 ### Version 0.1.0-BETA
-- Initial release.
+- Initial Beta.
