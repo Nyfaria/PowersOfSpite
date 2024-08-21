@@ -37,18 +37,19 @@ You can also add, remove, and clear powers via the `/powers` command, but this i
 ### Active
 
 Super Speed - makes the player able to run really fast
-Ghost - allows player to walk through solid objects
-Invisibility - allows the player to turn invisible
-Displacer - allows players to summon clones to fight for them (max 2 at a time)
-Spatial Travel - Allows players to create two portals at a time and go through one (has a 10s travel cooldown)
+- Ghost - allows player to walk through solid objects
+- Invisibility - allows the player to turn invisible
+- Displacer - allows players to summon clones to fight for them (max 2 at a time)
+- Spatial Travel - Allows players to create two portals at a time and go through one (has a 10s travel cooldown)
+- Teleportation - look at a place and click your keybind to TP
 
 ### Passive
 
-Flight - allows you to fly
-Elasticity - allows you to bounce and take
-Super Strength - gives a lot of strength and knockback ability to player
-Keen Sight - allows for seeing through fog and clearly at night
-Triton - gives waterbreathing and allows you to swim fast
+- Flight - allows you to fly
+- Elasticity - allows you to bounce and take
+- Super Strength - gives a lot of strength and knockback ability to player
+- Keen Sight - allows for seeing through fog and clearly at night
+- Triton - gives waterbreathing and allows you to swim fast
 
 ## Important
 
