@@ -54,6 +54,8 @@ Triton - gives waterbreathing and allows you to swim fast
 
 This mod is still in Beta. Yes, bugs can exist - that's why betas exist! We plan on adding more content to this mod with some time, including ways to make powers, remove powers, and more powers in general. We also want to improve the visuals of this mod. Most of this mod is a WIP.
 
+See our plans here: https://github.com/users/Nyfaria/projects/4/views/1
+
 Please report any bugs or feedback you may have (especially while it is in Beta)! You can do so in one of these places:
 - GitHub: https://github.com/Nyfaria/PowersOfSpite/issues
 - Discord:https://discord.gg/nwDQcxpJG8
