@@ -94,8 +94,12 @@ dependencies {
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
     // Capability Syncer
     hundredMedia.addJarJarDep('dev._100media.capabilitysyncer:capabilitysyncer', capabilitysyncer_version, capabilitysyncer_version_range)
-    hundredMedia.addJarJarDep('mysticdrew:common-networking-forge',cn_version,cn_version_range)
-    hundredMedia.addJarJarDep('dev.kosmx.player-anim:player-animation-lib-forge',player_anim_version,player_anim_version_range)
+    implementation(jarJar("mysticdrew:common-networking-forge:${cn_version}")){
+        jarJar.ranged(it,cn_version_range)
+    }
+    implementation(jarJar("dev.kosmx.player-anim:player-animation-lib-forge:${player_anim_version}")){
+        jarJar.ranged(it,player_anim_version_range)
+    }
 }
 
 tasks.withType(JavaCompile) {
@@ -155,7 +159,7 @@ publishing {
 reg.configureJarTask(tasks.jarJar)
 publishMods {
     if(publishForge.toBoolean()) {
-        file = jar.archiveFile
+        file = tasks.jarJar.archiveFile
         changelog = project(":Common").file("changelog.md").text
         type = STABLE
         modLoaders.add("forge")
