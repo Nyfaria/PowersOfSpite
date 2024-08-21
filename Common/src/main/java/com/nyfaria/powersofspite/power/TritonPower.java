@@ -10,13 +10,13 @@ public class TritonPower implements Power {
     @Override
     public List<Ability> getAbilities() {
         return List.of(
-                AbilityInit.WATER_BREATHING.get(),
-                AbilityInit.SWIM_SPEED.get()
+                AbilityInit.SWIM_SPEED.get(),
+                AbilityInit.WATER_BREATHING.get()
         );
     }
 
     @Override
     public boolean hasActive() {
-        return false;
+        return true;
     }
 }

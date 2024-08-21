@@ -29,7 +29,8 @@ public class CommonModEvents {
             BrewingRecipeRegistry.addRecipe(
                     Ingredient.of(PotionUtils.setPotion(Items.POTION.getDefaultInstance(), Potions.AWKWARD)),
                     Ingredient.of(ItemInit.RAW_SPITE.get()),
-                    ItemInit.CHEMICAL_S.get().getDefaultInstance());
+                    ItemInit.CHEMICAL_S.get().getDefaultInstance()
+            );
             BrewingRecipeRegistry.addRecipe(
                     Ingredient.of(ItemInit.CHEMICAL_S.get()),
                     Ingredient.of(Items.DIAMOND_BLOCK),

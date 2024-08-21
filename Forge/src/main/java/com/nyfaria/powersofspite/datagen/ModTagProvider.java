@@ -1,10 +1,12 @@
 package com.nyfaria.powersofspite.datagen;
 
 import com.nyfaria.powersofspite.SpiteConstants;
+import com.nyfaria.powersofspite.init.BlockInit;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -43,6 +45,8 @@ public class ModTagProvider {
 
         @Override
         protected void addTags(HolderLookup.Provider pProvider) {
+            populateTag(BlockTags.MINEABLE_WITH_PICKAXE, BlockInit.SPITE_ORE);
+            populateTag(BlockTags.NEEDS_DIAMOND_TOOL, BlockInit.SPITE_ORE);
 
         }
         public  <T extends Block>void populateTag(TagKey<Block> tag, Supplier<?>... items){

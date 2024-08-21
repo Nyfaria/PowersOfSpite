@@ -3,3 +3,6 @@ accessible class net/minecraft/world/level/block/entity/BlockEntityType$BlockEnt
 accessible field net/minecraft/client/KeyMapping key Lcom/mojang/blaze3d/platform/InputConstants$Key;
 accessible method net/minecraft/client/renderer/entity/EntityRenderers register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/client/renderer/entity/EntityRendererProvider;)V
 mutable field net/minecraft/client/Options keyMappings [Lnet/minecraft/client/KeyMapping;
+accessible field net/minecraft/world/item/alchemy/PotionBrewing CONTAINER_MIXES Ljava/util/List;
+accessible field net/minecraft/world/item/alchemy/PotionBrewing ALLOWED_CONTAINERS Ljava/util/List;
+accessible class net/minecraft/world/item/alchemy/PotionBrewing$Mix
