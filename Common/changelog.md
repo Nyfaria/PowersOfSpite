@@ -1,6 +1,8 @@
 ### Version 0.2.0-BETA
 - Fixed Triton power displaying as a passive power
 - Fixed removal of strength power from player not getting rid of abilities
+- Lowered portal timeout to 5 seconds
+- Added sound when entity teleports through portal
 
 ### Version 0.1.1-BETA
 - Fixed Tags on Ore for Mining.
