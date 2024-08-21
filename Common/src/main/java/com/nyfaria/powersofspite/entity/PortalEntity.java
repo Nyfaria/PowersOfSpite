@@ -4,6 +4,8 @@ import com.nyfaria.powersofspite.cap.AbilityHolder;
 import com.nyfaria.powersofspite.platform.Services;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
@@ -46,7 +48,8 @@ public class PortalEntity extends Entity {
                                         BlockPos otherPortal = holder.getOtherPortalPos(getUUID());
                                         if (otherPortal != BlockPos.ZERO) {
                                             entity.teleportTo(otherPortal.getX(), otherPortal.getY(), otherPortal.getZ());
-                                            entity.setPortalCooldown(200);
+                                            entity.level().playSound(null, entity.getOnPos(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 0.8f, 0.5f);
+                                            entity.setPortalCooldown(20*5);
                                         }
                                     }
                                 }
