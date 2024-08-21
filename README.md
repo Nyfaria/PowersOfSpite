@@ -2,7 +2,7 @@
 
 A new superpower mod is just around the corner…
 
-![Banner](https://media.forgecdn.net/attachments/946/353/powersofspitebanner.png)
+![PowersOfSpiteBanner](https://github.com/user-attachments/assets/50c5ad30-93bd-4149-97ba-4eb797a3b197)
 
 ## What happened here?
 
@@ -18,7 +18,7 @@ Brew Raw Spite with an Awkward Potion to make Chemical S
 Brew the Chemical S with a Diamond Block in the brewing stand to make Spite Serum!
 Use (right-click with serum in hand) the Spite serum to give yourself a random power! You can have maximum three powers at a time. Press V to see your powers (customizable in Keybinds menu)!
 
-![Spite stuff](https://media.forgecdn.net/attachments/946/354/pos-spite-stuff.png)
+![pos-spite-stuff](https://github.com/user-attachments/assets/edd2fa33-8db3-4bbc-86b6-6e4c58d53b03)
 
 ## Two types of powers
 
@@ -26,7 +26,7 @@ Active powers are powers that you can activate and deactivate on command. They s
 
 Passive powers are powers that you always have and cannot be toggled. For example, flight, super strength, etc are passive. These do not show at the top left but can be seen in the Power Screen (by clicking V).
 
-![Powers screen](https://media.forgecdn.net/attachments/946/351/powersscreen.png)
+![Powersscreen](https://github.com/user-attachments/assets/4bd1c2a9-0763-4042-9dad-87b55cd2bb4d)
 
 ## /powers Command
 
