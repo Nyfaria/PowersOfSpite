@@ -36,7 +36,6 @@ You can also add, remove, and clear powers via the `/powers` command, but this i
 
 ### Active
 
-Super Speed - makes the player able to run really fast
 - Super Speed - makes the player able to run really fast
 - Ghost - allows player to walk through solid objects
 - Invisibility - allows the player to turn invisible
