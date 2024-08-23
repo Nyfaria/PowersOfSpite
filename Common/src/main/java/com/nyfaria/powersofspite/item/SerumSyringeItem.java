@@ -71,6 +71,6 @@ public class SerumSyringeItem extends Item {
         if (Services.PLATFORM.getEnvironmentName().equals("development")) {
             return 1;
         }
-        return 20 * 10;
+        return 20 * 6;
     }
 }

@@ -1,3 +1,6 @@
+### Version 0.2.0-BETA
+- Reduced serum usage time to 6 seconds
+
 ### Version 0.1.2-BETA
 - Fixed Triton power displaying as a passive power
 - Fixed removal of strength power from player not getting rid of abilities
