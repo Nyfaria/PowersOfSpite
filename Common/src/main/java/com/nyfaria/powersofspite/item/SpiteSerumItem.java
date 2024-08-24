@@ -18,8 +18,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class SerumSyringeItem extends Item {
-    public SerumSyringeItem(Properties pProperties) {
+public class SpiteSerumItem extends Item {
+    public SpiteSerumItem(Properties pProperties) {
         super(pProperties);
     }
 

@@ -1,5 +1,7 @@
 ### Version 0.2.0-BETA
 - Reduced serum usage time to 6 seconds
+- Touched up Spite Serum texture
+- Redid Chemical S texture
 
 ### Version 0.1.2-BETA
 - Fixed Triton power displaying as a passive power
