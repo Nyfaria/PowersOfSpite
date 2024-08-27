@@ -24,7 +24,8 @@ public class PortalRenderer extends EntityRenderer<PortalEntity> {
     @Override
     public void render(PortalEntity pEntity, float pEntityYaw, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
         pPoseStack.pushPose();
-        pPoseStack.translate(0, 0.5, 0);
+        pPoseStack.scale(1.2f, 1.2f, 1.2f);
+        pPoseStack.translate(0, 0.3, 0);
         pPoseStack.mulPose(Axis.YP.rotationDegrees(Minecraft.getInstance().player.getViewYRot(pPartialTick)));
         model.renderToBuffer(pPoseStack, pBuffer.getBuffer(RenderType.entityTranslucent(getTextureLocation(pEntity))), pPackedLight, OverlayTexture.NO_OVERLAY, 1, 1, 1, 0.75f);
         pPoseStack.popPose();
