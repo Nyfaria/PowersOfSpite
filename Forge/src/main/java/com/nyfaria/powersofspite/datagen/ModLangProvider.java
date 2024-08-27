@@ -48,43 +48,41 @@ public class ModLangProvider extends LanguageProvider {
         add("key.categories."+ SpiteConstants.MODID, SpiteConstants.MOD_NAME);
         add(SpiteConstants.getPowerDescription(PowerInit.NONE.get(), 0),"• Please select a Power to the Left!");
         add(SpiteConstants.getPowerDescription(PowerInit.FLIGHT.get(), 0),"• Passive Ability of Flight");
-        add(SpiteConstants.getPowerDescription(PowerInit.TRITON.get(), 0),"• Powers of a Triton");
-        add(SpiteConstants.getPowerDescription(PowerInit.SUPER_STRENGTH.get(), 0),"• Increased Physical Power!");
-        add(SpiteConstants.getPowerDescription(PowerInit.SUPER_SPEED.get(), 0),"• Run like a Speedster!");
-        add(SpiteConstants.getPowerDescription(PowerInit.GHOST.get(), 0),"• Become intangible and walk through walls");
-        add(SpiteConstants.getPowerDescription(PowerInit.GHOST.get(), 1),"• (caution, with great power comes great danger potential)");
-        add(SpiteConstants.getPowerDescription(PowerInit.INVISIBILITY.get(), 0),"• Become invisible");
-        add(SpiteConstants.getPowerDescription(PowerInit.KEEN_SIGHT.get(), 0),"• Your ability to see is greatly increased");
-        add(SpiteConstants.getPowerDescription(PowerInit.TELEPORTATION.get(), 0),"• Teleport like an Enderman!");
-        add(SpiteConstants.getPowerDescription(PowerInit.ELASTICITY.get(), 0),"• Bounce like a rubber ball");
-        add(SpiteConstants.getPowerDescription(PowerInit.ELASTICITY.get(), 1),"• No Fall Damage");
-        add(SpiteConstants.getPowerDescription(PowerInit.ELASTICITY.get(), 2),"• Half Damage");
-        add(SpiteConstants.getPowerDescription(PowerInit.DISPLACER.get(), 0),"• Create Clones to fight for you");
-        add(SpiteConstants.getPowerDescription(PowerInit.SPATIAL_TRAVEL.get(), 0),"• Create Portals to travel through");
+//•
+        add(SpiteConstants.getPowerDescription(PowerInit.TRITON.get(), 0),"Obtain various nautical abilities equipping you for any epic underwater battle or excursion!");
+        add(SpiteConstants.getPowerDescription(PowerInit.SUPER_STRENGTH.get(), 0),"Take 'one powerful punch' to a whole new level, obtaining never-seen-before amounts of power from your fists!");
+        add(SpiteConstants.getPowerDescription(PowerInit.SUPER_SPEED.get(), 0),"Get to anywhere within seconds by running faster than you can say 'Powers of Spite'!");
+        add(SpiteConstants.getPowerDescription(PowerInit.GHOST.get(), 0),"Allow no objects to stop you as you harness the power of phasing through objects on demand!");
+        add(SpiteConstants.getPowerDescription(PowerInit.GHOST.get(), 1),"Remember: With great power comes great responsibility! You can easily get yourself in trouble if you make the wrong moves.");
+        add(SpiteConstants.getPowerDescription(PowerInit.INVISIBILITY.get(), 0),"Do whatever you want and never be seen with the outside world as you become totally see-through!");
+        add(SpiteConstants.getPowerDescription(PowerInit.KEEN_SIGHT.get(), 0),"See great distances to spot enemies or storms, through the black of the sky and the foggiest clouds!");
+        add(SpiteConstants.getPowerDescription(PowerInit.TELEPORTATION.get(), 0),"Even better than getting somewhere faster than you can say 'Powers of Spite' is getting there before you say 'spite'!");
+        add(SpiteConstants.getPowerDescription(PowerInit.ELASTICITY.get(), 0),"Harness the abilities of the rubber ball - it may not seem impressive until you can jump off mountains with no problem!");
+        add(SpiteConstants.getPowerDescription(PowerInit.ELASTICITY.get(), 1),"Allow yourself to take no fall damage and take only half as much damage as normal.");
+        add(SpiteConstants.getPowerDescription(PowerInit.DISPLACER.get(), 0),"Double your army by summoning minions that fight for you and your pets on demand!");
+        add(SpiteConstants.getPowerDescription(PowerInit.SPATIAL_TRAVEL.get(), 0),"Warp the basic principles of time itself by creating portals you can teleport through!");
 
+        add(SpiteConstants.getAbilityDescription(AbilityInit.NONE.get(),0), "Please select a Power to the Left!");
 
-
-
-        add(SpiteConstants.getAbilityDescription(AbilityInit.FLIGHT.get(),0), "• Allows you to fly, double jump to start.");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.FLIGHT.get(),1), "• While Sprinting during flight, you will move in the direction you are looking");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.NONE.get(),0),"• Please select a Power to the Left!");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.WATER_BREATHING.get(),0), "• Allows you to breathe underwater");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.SWIM_SPEED.get(),0), "• Really fast swim speed");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.SUPER_SPEED.get(),0), "• Super fast speed");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.HALF_DAMAGE.get(),0), "• Take half damage");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.BOUNCE.get(),0), "• Bounce off of the ground");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.BOUNCE.get(),1), "• No Fall Damage");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.POWERFUL_DAMAGE.get(),0), "• Deal significant more damage");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.HEAVY_HITTER.get(),0), "• Increased Knockback to enemies");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.SPEED_DIGGING.get(),0), "• Dig blocks faster");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.INVISIBILITY.get(),0), "• Activate to become invisible");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.INTANGIBILITY.get(),0), "• Activate to become Walk through Blocks (caution, with great power comes great danger potential)");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.CLEAR_VISION.get(),0), "• Ability to See through all kinds of Fog");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.TELEPORTATION.get(),0), "• Teleport to a location you are looking at");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.CLONE.get(),0), "• Create a Clone of yourself to fight for you");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.PORTAL.get(),0), "• Create a Portal to travel through");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.PORTAL.get(),1), "• Portal will last for 10 minutes");
-        add(SpiteConstants.getAbilityDescription(AbilityInit.PORTAL.get(),2), "• Only the last 2 portals made will work.");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.FLIGHT.get(),0), "Double jump to start flying");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.FLIGHT.get(),1), "Hold down sprint while flying to move fast in the direction you are looking");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.WATER_BREATHING.get(),0), "Breathe underwater");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.SWIM_SPEED.get(),0), "Swim faster in water");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.SUPER_SPEED.get(),0), "Increase base running speed");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.HALF_DAMAGE.get(),0), "Take half the damage of a normal hit");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.BOUNCE.get(),0), "Bounce off of the ground");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.BOUNCE.get(),1), "Remove fall damage");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.POWERFUL_DAMAGE.get(),0), "Deal more damage");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.HEAVY_HITTER.get(),0), "Increased knockback when hitting something");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.SPEED_DIGGING.get(),0), "Dig blocks faster");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.INVISIBILITY.get(),0), "Activate to become invisible");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.INTANGIBILITY.get(),0), "Activate to walk through blocks");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.CLEAR_VISION.get(),0), "See better at night or through fog");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.TELEPORTATION.get(),0), "Teleport to a location you are looking at");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.CLONE.get(),0), "Create clones of yourself that fight for you");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.PORTAL.get(),0), "Create two portal to travel through");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.PORTAL.get(),1), "Traveling through portals has a cooldown of 6 seconds");
+        add(SpiteConstants.getAbilityDescription(AbilityInit.PORTAL.get(),2), "Portals will disappear in 10 minutes");
     }
 
     protected void itemLang(RegistryObject<Item> entry) {

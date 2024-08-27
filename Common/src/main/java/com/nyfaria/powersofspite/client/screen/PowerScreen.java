@@ -71,10 +71,10 @@ public class PowerScreen extends Screen {
             int yOffset = 10;
             pGuiGraphics.pose().pushPose();
             pGuiGraphics.pose().scale(1.5f, 1.5f, 1.5f);
-            pGuiGraphics.drawCenteredString(font, Component.translatable(SpiteConstants.getDescriptionId(renderingPower)), Mth.floor((topLeftX + 20 + 10 + ((screenWidth - 20 - 10) / 2f)) * (2 / 3f)), Mth.floor((topLeftY + yOffset) * (2 / 3f)), 0xFFFFFF);
+            pGuiGraphics.drawCenteredString(font, Component.translatable(SpiteConstants.getDescriptionId(renderingPower)), Mth.floor((topLeftX + 20 + 10 + ((screenWidth - 20 - 10) / 2f)) * (2 / 3f)), Mth.floor((topLeftY + yOffset) * (2 / 3f)), 0xdfa0ff);
             pGuiGraphics.pose().popPose();
             yOffset += 15;
-            pGuiGraphics.hLine(topLeftX + 40, topLeftX + screenWidth - 10, topLeftY + yOffset, 0xFFFFFFFF);
+//            pGuiGraphics.hLine(topLeftX + 40, topLeftX + screenWidth - 10, topLeftY + yOffset, 0xFFFFFFFF);
             yOffset += 5;
             for (int i = 0; i < 6; i++) {
                 String id = SpiteConstants.getPowerDescription(renderingPower, i);
@@ -91,16 +91,15 @@ public class PowerScreen extends Screen {
                     yOffset += 10;
                 }
             }
-            pGuiGraphics.hLine(topLeftX + 40, topLeftX + screenWidth - 10, topLeftY + yOffset, 0xFFFFFFFF);
+//            pGuiGraphics.hLine(topLeftX + 40, topLeftX + screenWidth - 10, topLeftY + yOffset, 0xFFFFFFFF);
             yOffset += 10;
             for(Ability ability : renderingPower.getAbilities()){
                 pGuiGraphics.pose().pushPose();
                 pGuiGraphics.pose().scale(1.25f, 1.25f, 1.25f);
                 pGuiGraphics.drawCenteredString(font, Component.translatable(SpiteConstants.getDescriptionId(ability)), Mth.floor((topLeftX + 20 + 10 + ((screenWidth - 20 - 10) / 2f)) * (4 / 5f)), Mth.floor((topLeftY + yOffset) * (4 / 5f)), 0xFFFFFF);
                 pGuiGraphics.pose().popPose();
+//                pGuiGraphics.hLine(topLeftX + 40, topLeftX + screenWidth - 10, topLeftY + yOffset, 0xFFFFFFFF);
                 yOffset += 15;
-                pGuiGraphics.hLine(topLeftX + 40, topLeftX + screenWidth - 10, topLeftY + yOffset, 0xFFFFFFFF);
-                yOffset += 5;
                 for (int i = 0; i < 6; i++) {
                     String id = SpiteConstants.getAbilityDescription(ability, i);
                     Component text = Component.translatable(id);
@@ -114,13 +113,13 @@ public class PowerScreen extends Screen {
                     pGuiGraphics.pose().scale(0.75f, 0.75f, 0.75f);
                     List<FormattedCharSequence> lines = font.split(text, ((screenWidth - 20 - 10)));
                     for (FormattedCharSequence line : lines) {
-                        pGuiGraphics.drawString(font, line, Mth.floor((topLeftX + 45) * (4f/3f)), Mth.floor((topLeftY + yOffset) * (4f/3f)), 0xFFFFFF);
+                        pGuiGraphics.drawString(font, line, Mth.floor((topLeftX + 45) * (4f/3f)), Mth.floor((topLeftY + yOffset) * (4f/3f)), 0xc1c1c1);
                         yOffset += 10;
                     }
                     pGuiGraphics.pose().popPose();
                 }
-                pGuiGraphics.hLine(topLeftX + 40, topLeftX + screenWidth - 10, topLeftY + yOffset, 0xFFFFFFFF);
-                yOffset += 10;
+//                pGuiGraphics.hLine(topLeftX + 40, topLeftX + screenWidth - 10, topLeftY + yOffset, 0xFFFFFFFF);
+//                yOffset += 10;
             }
         }
     }
